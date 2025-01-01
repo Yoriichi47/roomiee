@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seeder": "tsc src/seeder/seeder.ts --outDir .temp && node .temp/seeder/seeder.js && rm -rf .temp"  
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",

@@ -9,8 +9,8 @@ datasource db {
 }
 
 model Room{
-  name String 
-  roomId String @id @default(cuid())
+  name String? 
+  roomId String @unique @id @default(cuid())
   description String
   price Float @default(0.0)
   Street String
