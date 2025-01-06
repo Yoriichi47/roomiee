@@ -11,26 +11,6 @@ export const newRoom = async (req: NextRequest) => {
   try {
     const body = await req.json();
     const room = await prisma.room.create({ data: body });
-    // const room = await prisma.room.create({
-    //   data: {
-    //     name: body.name,
-    //     roomId: body.roomId, // Convert roomId to a string
-    //     description: body.description,
-    //     price: parseFloat(body.price),
-    //     Street: body.Street,
-    //     City: body.City,
-    //     State: body.State,
-    //     Country: body.Country,
-    //     ZipCode: body.ZipCode, // Convert ZipCode to a string
-    //     guestCapacity: parseInt(body.guestCapacity),
-    //     Beds: body.Beds,
-    //     isWifiAvailable: body.isWifiAvailable,
-    //     isBreakfastAvailable: body.isBreakfastAvailable,
-    //     isAirConditioned: body.isAirConditioned,
-    //     images: body.images,
-    //   },
-    // });
-
     return NextResponse.json({
       message: "Room created",
       room,
@@ -44,9 +24,9 @@ export const newRoom = async (req: NextRequest) => {
 
 export const getRoomDetails = async (
   req: NextRequest,
-  { params }: { params: { roomId: string } }
+  { params }: { params: Promise<{ roomId: string }> }
 ) => {
-  const { roomId } = params;
+  const roomId = (await params).roomId;
   try {
     const room = await prisma.room.findUnique({
       where: {
@@ -71,12 +51,12 @@ export const getRoomDetails = async (
 
 export const updateRoom = async (
   req: NextRequest,
-  { params }: { params: { roomId: string } }
+  { params }: { params: Promise<{roomId: string}> }
 ) => {
   // Based on the room ID, update the room details
   try {
     const body = await req.json();
-    const { roomId } = params;
+    const roomId = (await params).roomId
     const room = await prisma.room.update({
       where: {
         roomId,
@@ -98,8 +78,8 @@ export const updateRoom = async (
   }
 };
 
-export const deleteRoom = async (req: NextRequest, {params}: {params: {roomId: string}}) => {
-  const {roomId} = params
+export const deleteRoom = async (req: NextRequest, {params}: {params: Promise<{roomId: string}>}) => {
+  const roomId = (await params).roomId
   try {
     const room = await prisma.room.delete({
       where: {
