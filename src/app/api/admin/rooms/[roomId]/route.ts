@@ -3,9 +3,7 @@ import { createEdgeRouter } from "next-connect"
 import { NextRequest } from "next/server"
 
 interface RequestContext{
-    params: {
-        roomId: string
-    }
+    params: Promise<{ roomId: string }>
 }
 
 const router = createEdgeRouter<NextRequest, RequestContext>()
