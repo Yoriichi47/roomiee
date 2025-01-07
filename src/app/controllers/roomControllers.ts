@@ -5,50 +5,61 @@ export const allRooms = async (
   req: NextRequest,
   {
     params,
-  }: { params: Promise<{ city?: string; state?: string; country?: string }> }
+  }: {
+    params: Promise<{
+      city?: string;
+      state?: string;
+      country?: string;
+      guestcapacity?: number;
+      beds?: number
+    }>;
+  }
 ) => {
-  const rooms = await prisma.room.findMany();
   const responsePerPage = 6;
-  const city = (await params).city;
-  const state = (await params).state;
-  const country = (await params).country;
+  const { city, state, country, guestcapacity, beds } = await params;
 
-  console.log(`Filtered property: ${city || state || country}`);
+  console.log(
+    `Filtered property: ${city || state || country || guestcapacity || beds}`
+  );
+
+  // Build the query object dynamically
+  const whereConditions: any = {};
 
   if (city) {
-    const rooms = await prisma.room.findMany({
-      where: {
-        City: {
-          equals: city,
-          mode: "insensitive",
-        }
-        
-      },
-    });
-    return NextResponse.json({ success: true, responsePerPage, rooms });
-  } else if (state) {
-    const rooms = await prisma.room.findMany({
-      where: {
-        State: {
-          equals: state,
-          mode: "insensitive",
-        }
-      },
-    });
-    return NextResponse.json({ success: true, responsePerPage, rooms });
-  } else if (country) {
-    const rooms = await prisma.room.findMany({
-      where: {
-        Country: {
-          equals: country,
-          mode: "insensitive",
-        }
-      },
-    });
-    return NextResponse.json({ success: true, responsePerPage, rooms });
-  } else {
-    return NextResponse.json({ success: true, responsePerPage, rooms });
+    whereConditions.City = {
+      equals: city,
+      mode: "insensitive",
+    };
   }
+
+  if (state) {
+    whereConditions.State = {
+      equals: state,
+      mode: "insensitive",
+    };
+  }
+
+  if (country) {
+    whereConditions.Country = {
+      equals: country,
+      mode: "insensitive",
+    };
+  }
+
+  if (guestcapacity) {
+    whereConditions.guestCapacity = guestcapacity;
+  }
+
+  if(beds){
+    whereConditions.Beds = beds
+  }
+
+  // Fetch rooms based on the constructed query
+  const rooms = await prisma.room.findMany({
+    where: whereConditions,
+  });
+
+  return NextResponse.json({ success: true, responsePerPage, rooms });
 };
 
 export const newRoom = async (req: NextRequest) => {
@@ -91,12 +102,6 @@ export const getRoomDetails = async (
       console.log("error:", error.stack);
     }
   }
-};
-
-export const getRoomByLocation = async () => {
-  // const searchParams = useSearchParams()
-  // const city = searchParams.get("city")
-  // return NextResponse.json({city})
 };
 
 export const updateRoom = async (
