@@ -11,16 +11,24 @@ export const allRooms = async (
       state?: string;
       country?: string;
       guestcapacity?: number;
-      beds?: number
+      beds?: number;
+      isbreakfastavailable?: boolean;
+      iswifiavailable?: boolean;
+      isairconditioned?: boolean;
     }>;
   }
 ) => {
   const responsePerPage = 6;
-  const { city, state, country, guestcapacity, beds } = await params;
+
+  const { city, state, country, guestcapacity, beds, isbreakfastavailable, iswifiavailable, isairconditioned } = await params;
 
   console.log(
-    `Filtered property: ${city || state || country || guestcapacity || beds}`
+    `Filtered property: ${city || state || country || guestcapacity || beds || isbreakfastavailable|| iswifiavailable|| isairconditioned}`
   );
+
+  const localBreakfastVariable = JSON.stringify(isbreakfastavailable);
+  const localWifiVariable = JSON.stringify(iswifiavailable);
+  const localAirConditionerVariable = JSON.stringify(isairconditioned);
 
   // Build the query object dynamically
   const whereConditions: any = {};
@@ -52,6 +60,18 @@ export const allRooms = async (
 
   if(beds){
     whereConditions.Beds = beds
+  }
+
+  if (localBreakfastVariable) {
+    whereConditions.isBreakfastAvailable = isbreakfastavailable;
+  }
+
+  if (localWifiVariable) {
+    whereConditions.isWifiAvailable = iswifiavailable;
+  }
+  
+  if (localAirConditionerVariable) {
+    whereConditions.isAirConditioned = isairconditioned;
   }
 
   // Fetch rooms based on the constructed query
