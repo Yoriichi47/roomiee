@@ -22,7 +22,7 @@ export async function GET(request:NextRequest, ctx: RequestContext) {
     const airconditioner = searchParams.get("isairconditioned") 
     const wifi = searchParams.get("iswifiavailable") 
     
-    console.log({city, state, country, capacity, beds, breakfast})
+    // console.log({city, state, country, capacity, beds, breakfast})
     
     ctx.params = Promise.resolve({
         city: city ?? undefined,

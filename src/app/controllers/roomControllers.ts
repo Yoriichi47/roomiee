@@ -22,9 +22,9 @@ export const allRooms = async (
 
   const { city, state, country, guestcapacity, beds, isbreakfastavailable, iswifiavailable, isairconditioned } = await params;
 
-  console.log(
-    `Filtered property: ${city || state || country || guestcapacity || beds || isbreakfastavailable|| iswifiavailable|| isairconditioned}`
-  );
+  // console.log(
+  //   `Filtered property: ${city || state || country || guestcapacity || beds || isbreakfastavailable|| iswifiavailable|| isairconditioned}`
+  // );
 
   const localBreakfastVariable = JSON.stringify(isbreakfastavailable);
   const localWifiVariable = JSON.stringify(iswifiavailable);
@@ -69,7 +69,7 @@ export const allRooms = async (
   if (localWifiVariable) {
     whereConditions.isWifiAvailable = iswifiavailable;
   }
-  
+
   if (localAirConditionerVariable) {
     whereConditions.isAirConditioned = isairconditioned;
   }
