@@ -18,13 +18,7 @@ export const allRooms = async (
     }>;
   }
 ) => {
-  const responsePerPage = 6;
-
   const { city, state, country, guestcapacity, beds, isbreakfastavailable, iswifiavailable, isairconditioned } = await params;
-
-  // console.log(
-  //   `Filtered property: ${city || state || country || guestcapacity || beds || isbreakfastavailable|| iswifiavailable|| isairconditioned}`
-  // );
 
   const localBreakfastVariable = JSON.stringify(isbreakfastavailable);
   const localWifiVariable = JSON.stringify(iswifiavailable);
@@ -79,7 +73,7 @@ export const allRooms = async (
     where: whereConditions,
   });
 
-  return NextResponse.json({ success: true, responsePerPage, rooms });
+  return NextResponse.json({ success: true, rooms });
 };
 
 export const newRoom = async (req: NextRequest) => {

@@ -38,6 +38,10 @@ export default function RootLayout({
     </html>
   );
 }
+// [
+//   "http://res.cloudinary.com/udemy-courses/image/upload/v1693135931/bookit/demo/ny4n2w1ubdnfktua8stg.jpg",
+//   "http://res.cloudinary.com/udemy-courses/image/upload/v1693135931/bookit/demo/ao7enhxobr0z1qyxgyki.jpg"
+// ]
 
 // # Recommended for most uses
 // DATABASE_URL=postgres://neondb_owner:Wyc90YXvInxU@ep-flat-shadow-a5m21t2h-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require
