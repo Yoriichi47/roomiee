@@ -1,18 +1,18 @@
-// "use client";
+"use client";
 import RoomCard from "@/components/RoomCard";
-// import { useEffect } from "react";
-// import { Bounce, ToastContainer, toast } from "react-toastify";
+import { useEffect } from "react";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Home(){
-  // useEffect(() => {
-  //   toast.success("This is a trial success message!!!");
-  //   toast.error("This is a trial error message!!!");
-  // }, []);
+  useEffect(() => {
+    toast.success("This is a trial success message!!!");
+    toast.error("This is a trial error message!!!");
+  }, []);
 
   return (
     <>
-      {/* <ToastContainer
+      <ToastContainer
         position="bottom-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -24,7 +24,7 @@ export default function Home(){
         pauseOnHover
         theme="dark"
         transition={Bounce}
-      /> */}
+      />
       <RoomCard />
     </>
   );
