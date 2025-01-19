@@ -1,39 +1,44 @@
 import React from "react";
 import Image from "next/image";
-import next from "next";
+import Link from "next/link";
 
-const RoomCard = () => {
-  const roomDetail = async () => {
-    const res = await fetch("http://localhost:3000/api/rooms", {next: {
-      revalidate: 600,
-    }});
-    const data = await res.json()
-    console.log(data);
+interface Props {
+  room: {
+    roomId: number;
+    description: string;
+    name: string;
+    price: number;
+    images: string[];
   };
+}
 
-  roomDetail()
-
+const RoomCard = ({ room }: Props) => {
+  console.log(room);
   return (
     <>
-      <div className="p-4 flex flex-col gap-2 border-2 border-black rounded-lg h-80 m-4 w-72">
-        <div className="img w-full ">
+      <div className="p-4 flex  flex-col justify-between gap-2 border-2 border-black rounded-lg h-96 m-4 w-72">
+        <div className="img w-full min-h-[50%]">
           {" "}
           <Image
-            src="/download.jpg"
+            src={room.images?.length > 0 ? room.images[0] : "/images.jpg"}
             className="rounded-md"
-            alt="123"
-            width={500}
-            height={200}
+            alt={room.name}
+            width={400}
+            height={100}
           />{" "}
         </div>
-        <br />
-        <div className="flex flex-col gap-2">
-          <div className="roomName text-lg font-semibold">Room Name</div>
-          <div className="roomPrice text-sm">$100/price</div>
-          <button className="roomDetailButton p-2 rounded-md text-center border bg-purple-600 text-white font-semibold">
-            View Details
-          </button>
+        <div>
+          <div className="roomName p-2 font-semibold">{room.name}</div>{" "}
+          <div className="roomPrice pt-2 px-2 border-t-2 border-black text-sm">
+            <span className="font-semibold">${room.price}</span>
+            /night
+          </div>
         </div>
+        <button className="roomDetailButton p-2 rounded-md text-center border w-full bg-purple-600 text-white font-semibold">
+          <Link href={`/rooms/${room.roomId}`}>
+          Details
+          </Link>
+        </button>
       </div>
     </>
   );

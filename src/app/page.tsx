@@ -1,31 +1,28 @@
-"use client";
-import RoomCard from "@/components/RoomCard";
-import { useEffect } from "react";
-import { Bounce, ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import HomePage from "@/components/HomePage";
 
-export default function Home(){
-  useEffect(() => {
-    toast.success("This is a trial success message!!!");
-    toast.error("This is a trial error message!!!");
-  }, []);
+const roomDetail = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/rooms");
+    const data = await res.json();
+
+    if (data?.success && Array.isArray(data.rooms)) {
+      return data.rooms;
+    }
+
+    return [];
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("error:", error.stack);
+    }
+  }
+};
+
+export default async function page() {
+  const rooms = await roomDetail();
 
   return (
     <>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
-      <RoomCard />
+      <HomePage rooms={rooms} />
     </>
   );
-};
+}

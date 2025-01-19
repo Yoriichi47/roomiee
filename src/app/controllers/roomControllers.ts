@@ -1,4 +1,5 @@
 import { prisma } from "@/prisma";
+import { ErrorBoundaryHandler } from "next/dist/client/components/error-boundary";
 import { NextRequest, NextResponse } from "next/server";
 
 export const allRooms = async (
@@ -73,7 +74,7 @@ export const allRooms = async (
     where: whereConditions,
   });
 
-  return NextResponse.json({ success: true, rooms });
+  return NextResponse.json({ success: true,  rooms: Array.isArray(rooms) ? rooms : [] });
 };
 
 export const newRoom = async (req: NextRequest) => {
