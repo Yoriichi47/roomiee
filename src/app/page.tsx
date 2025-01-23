@@ -1,6 +1,6 @@
 import HomePage from "@/components/HomePage";
 
-const roomDetail = async () => {
+const fetchRoomDetail = async () => {
   try {
     const res = await fetch("http://localhost:3000/api/rooms");
     const data = await res.json();
@@ -18,7 +18,7 @@ const roomDetail = async () => {
 };
 
 export default async function page() {
-  const rooms = await roomDetail();
+  const rooms = await fetchRoomDetail();
 
   return (
     <>

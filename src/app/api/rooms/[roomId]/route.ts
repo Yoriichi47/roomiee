@@ -1,4 +1,4 @@
-import { getRoomDetails, updateRoom } from "@/app/controllers/roomControllers"
+import { getRoomDetails } from "@/app/controllers/roomControllers"
 import { createEdgeRouter } from "next-connect"
 import { NextRequest } from "next/server"
 
