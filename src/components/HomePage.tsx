@@ -16,10 +16,10 @@ interface Props {
 }
 
 const HomePage = ({ rooms }: Props) => {
-  useEffect(() => {
-    toast.success("This is a trial success message!!!");
-    toast.error("This is a trial error message!!!");
-  }, []);
+  // useEffect(() => {
+  //   toast.success("This is a trial success message!!!");
+  //   toast.error("This is a trial error message!!!");
+  // }, []);
 
   const success = Array.isArray(rooms) && rooms.length > 0;
   console.log(success);

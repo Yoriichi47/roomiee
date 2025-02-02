@@ -1,4 +1,5 @@
 import HomePage from "@/components/HomePage";
+import { Metadata } from "next";
 
 const fetchRoomDetail = async () => {
   try {
@@ -16,6 +17,10 @@ const fetchRoomDetail = async () => {
     }
   }
 };
+
+// export const metadata: Metadata = {
+//   title: "Homepage - Roomiee"
+// }
 
 export default async function page() {
   const rooms = await fetchRoomDetail();
