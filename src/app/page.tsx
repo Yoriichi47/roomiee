@@ -1,5 +1,4 @@
 import HomePage from "@/components/HomePage";
-import { Metadata } from "next";
 
 const fetchRoomDetail = async () => {
   try {

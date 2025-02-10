@@ -21,9 +21,8 @@ const HomePage = ({ rooms }: Props) => {
   //   toast.error("This is a trial error message!!!");
   // }, []);
 
-  const success = Array.isArray(rooms) && rooms.length > 0;
-  console.log(success);
-  //   console.log(rooms)
+  // const success = Array.isArray(rooms) && rooms.length > 0;
+  // console.log("Here:", success);
 
   return (
     <>
@@ -40,7 +39,7 @@ const HomePage = ({ rooms }: Props) => {
         theme="dark"
         transition={Bounce}
       />
-      <div className="flex  mx-auto">
+      <div className="flex bg-gray-100  mx-auto">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 m-auto">
           {!rooms ? (
             <div>No rooms available</div>

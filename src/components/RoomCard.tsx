@@ -13,10 +13,9 @@ interface Props {
 }
 
 const RoomCard = ({ room }: Props) => {
-  console.log(room);
   return (
     <>
-      <div className="p-4 flex  flex-col justify-between gap-2 border-2 border-black rounded-lg h-96 m-4 w-72">
+      <div className="p-4 flex bg-white flex-col justify-between gap-2 border-2 border-black rounded-lg h-96 m-4 w-72">
         <div className="img w-full min-h-[50%]">
           {" "}
           <Image

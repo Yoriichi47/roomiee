@@ -18,6 +18,7 @@ const fetchRoomDetail = async (roomId: string) => {
     }
   } catch (error) {
     if (error instanceof Error) {
+      console.log("error");
       console.error("error:", error.stack);
     }
   }
@@ -57,40 +58,83 @@ export default async function page({ params }: props) {
 
   return (
     <>
-      <div className="p-4 flex h-screen flex-col justify-between gap-4 ">
-        <div className="img w-full min-h-[50%]">
+      <div className="p-4 flex flex-col gap-4 ">
+        <div className="">
+          <h2 className=" lg:text-5xl md:text-3xl m-2 font-semibold">
+            {roomArr[0]?.name ?? "No name"}
+          </h2>
+        </div>
+        
+        <div className="flex flex-col mb-6 mt-4 lg:flex-row lg:gap-4">
+
+        <div className="img w-full p-2">
           <Image
             src={
               roomArr[0]?.images?.length > 0
-                ? roomArr[0]?.images[0]
-                : "/images.jpg"
+              ? roomArr[0]?.images[0]
+              : "/images.jpg"
             }
-            className="rounded-md m-auto"
+            className="rounded-lg m-auto"
             alt={roomArr[0]?.name}
-            width={400}
+            width={600}
             height={100}
-          />
+            />
         </div>
-        {/* <p className="">Room Id: {roomArr[0]?.roomId ?? "No Room ID available"}</p>
-        <br /> */}
-        <h2 className=" lg:text-5xl md:text-3xl font-semibold">
-          {roomArr[0]?.name ?? "No name"}
-        </h2>
-        <p className="">
-          <span className="lg:text-2xl">${roomArr[0]?.price}</span>/night
-        </p>
-        <p className="">
-          Description: <br />{" "}
-          <span className="lg:text-xl">{roomArr[0]?.description}</span>
-        </p>
-        <p className="">
-          Location: <br /> <span className="lg:text-2xl">{location}</span>
-        </p>
-        <div className="my-10">
-          <p className="">Beds: {roomArr[0]?.Beds}</p>
-          <p className="">Air-Conditioning: {AirC}</p>
-          <p className="">Breakfast: {breakfast}</p>
-          <p className="">Wifi: {wifi}</p>
+        <div className="bg-gray-300 w-[2px]"></div>
+        <div className="pl-10">
+              
+              <p className=" lg:flex lg:flex-col pt-2 md:text-xl text-red-500 font-semibold lg:text-2xl">
+                Description: <br />{" "}
+                <span className="md:text-sm lg:w-[60%] text-black font-normal lg:text-base">
+                  {roomArr[0]?.description}
+                </span>
+              </p>
+              <p className="pt-2 mx-2  ">
+                <span className="lg:text-2xl text-red-500 md:text-xl font-bold">
+                  ${roomArr[0]?.price}
+                </span>
+                /night
+              </p>
+              
+              </div>
+            </div>
+            <div className="bg-gray-300  h-[2px] "></div>
+        <div className="flex mt-2">
+          <div className="w-2/3">
+            <div className="Left-Section">
+            <p className="m-2 pt-2 md:text-xl lg:text-2xl ">
+                <span className="md:text-xl text-red-500 font-semibold lg:text-2xl">
+                  Location:{" "}
+                </span>{" "}
+                <br />{" "}
+                <span className=" md:text-bsmase lg:text-base">{location}</span>
+              </p>
+              <div className="m-2 pt-2 md:text-xl lg:text-2xl  ">
+                <span className="md:text-xl text-red-500 font-semibold lg:text-2xl">
+                  Features:
+                </span>
+                <div className=" md:text-sm lg:text-base ">
+                  <p className="">
+                    <span className="font-semibold ">Beds:</span>{" "}
+                    {roomArr[0]?.Beds}
+                  </p>
+                  <p className=" px-2">
+                    <span className="font-semibold ">Air-Conditioning:</span>
+                    {AirC}
+                  </p>
+                  <p className=" px-2">
+                    <span className="font-semibold ">Breakfast:</span>{" "}
+                    {breakfast}
+                  </p>
+                  <p className=" px-2">
+                    <span className="font-semibold ">Wifi:</span> {wifi}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-300 w-[2px] "></div>
+          <div className="Right-Section bg-green-500 mt-2 p-2 mx-2 w-1/3">ksjdf</div>
         </div>
       </div>
     </>
