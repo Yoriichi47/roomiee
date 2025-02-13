@@ -58,56 +58,39 @@ export default async function page({ params }: props) {
 
   return (
     <>
-      <div className="p-4 flex flex-col gap-4 ">
-        <div className="">
-          <h2 className=" lg:text-5xl md:text-3xl m-2 font-semibold">
+      <div className="">
+        <div className="bg-purple-600">
+          <h2 className=" lg:text-5xl p-4 text-white md:text-3xl">
             {roomArr[0]?.name ?? "No name"}
           </h2>
         </div>
-        
-        <div className="flex flex-col mb-6 mt-4 lg:flex-row lg:gap-4">
 
-        <div className="img w-full p-2">
-          <Image
-            src={
-              roomArr[0]?.images?.length > 0
-              ? roomArr[0]?.images[0]
-              : "/images.jpg"
-            }
-            className="rounded-lg m-auto"
-            alt={roomArr[0]?.name}
-            width={600}
-            height={100}
-            />
+        <div className="flex flex-col lg:flex-row lg:gap-4">
+          <div className="img  p-2">
+            <div className="border border-black min-h-[30%] w-[50%]">HEllo</div>
+          </div>
+          <div className="bg-gray-300 w-[2px]"></div>
+          <div className="p-10">
+            <p className=" lg:flex lg:flex-col md:text-xl text-red-500 font-semibold lg:text-2xl">
+              Description: <br />{" "}
+              <span className="md:text-sm lg:w-[60%] text-black font-normal lg:text-base">
+                {roomArr[0]?.description}
+              </span>
+            </p>
+            <p className="pt-2 mx-2  ">
+              <span className="lg:text-2xl text-red-500 md:text-xl font-bold">
+                ${roomArr[0]?.price}
+              </span>
+              /night
+            </p>
+          </div>
         </div>
-        <div className="bg-gray-300 w-[2px]"></div>
-        <div className="pl-10">
-              
-              <p className=" lg:flex lg:flex-col pt-2 md:text-xl text-red-500 font-semibold lg:text-2xl">
-                Description: <br />{" "}
-                <span className="md:text-sm lg:w-[60%] text-black font-normal lg:text-base">
-                  {roomArr[0]?.description}
-                </span>
-              </p>
-              <p className="pt-2 mx-2  ">
-                <span className="lg:text-2xl text-red-500 md:text-xl font-bold">
-                  ${roomArr[0]?.price}
-                </span>
-                /night
-              </p>
-              
-              </div>
-            </div>
-            <div className="bg-gray-300  h-[2px] "></div>
-        <div className="flex mt-2">
+        <div className="bg-gray-300  h-[2px] "></div>
+        <div className="flex">
           <div className="w-2/3">
             <div className="Left-Section">
-            <p className="m-2 pt-2 md:text-xl lg:text-2xl ">
-                <span className="md:text-xl text-red-500 font-semibold lg:text-2xl">
-                  Location:{" "}
-                </span>{" "}
-                <br />{" "}
-                <span className=" md:text-bsmase lg:text-base">{location}</span>
+              <p className="p-4 md:text-xl lg:text-2xl ">
+                <span className=" md:text-base lg:text-base">{location}</span>
               </p>
               <div className="m-2 pt-2 md:text-xl lg:text-2xl  ">
                 <span className="md:text-xl text-red-500 font-semibold lg:text-2xl">
@@ -134,7 +117,9 @@ export default async function page({ params }: props) {
             </div>
           </div>
           <div className="bg-gray-300 w-[2px] "></div>
-          <div className="Right-Section bg-green-500 mt-2 p-2 mx-2 w-1/3">ksjdf</div>
+          <div className="Right-Section bg-green-500 mt-2 p-2 mx-2 w-1/3">
+            ksjdf
+          </div>
         </div>
       </div>
     </>
