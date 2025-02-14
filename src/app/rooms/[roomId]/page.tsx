@@ -58,67 +58,71 @@ export default async function page({ params }: props) {
 
   return (
     <>
-      <div className="">
-        <div className="bg-purple-600">
-          <h2 className=" lg:text-5xl p-4 text-white md:text-3xl">
+      <div className=" min-h-screen ">
+        <div className="bg-purple-600 flex justify-between">
+          <h2 className=" lg:text-5xl text-white md:text-3xl">
             {roomArr[0]?.name ?? "No name"}
           </h2>
+          <p className="md:text-xl lg:text-2xl text-white">
+                <span className=" md:text-base lg:text-lg">{location}</span>
+              </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row lg:gap-4">
-          <div className="img  p-2">
-            <div className="border border-black min-h-[30%] w-[50%]">HEllo</div>
+        <div className="flex flex-col lg:flex-row">
+          {" "}
+          {/* Add gap-4 later*/}
+          <div className="img w-2/5 min-h-[40vh] p-2">
+            <div className="border h-full bg-[#303030] border-black">Hello</div>
           </div>
           <div className="bg-gray-300 w-[2px]"></div>
-          <div className="p-10">
-            <p className=" lg:flex lg:flex-col md:text-xl text-red-500 font-semibold lg:text-2xl">
-              Description: <br />{" "}
-              <span className="md:text-sm lg:w-[60%] text-black font-normal lg:text-base">
-                {roomArr[0]?.description}
-              </span>
-            </p>
-            <p className="pt-2 mx-2  ">
-              <span className="lg:text-2xl text-red-500 md:text-xl font-bold">
-                ${roomArr[0]?.price}
-              </span>
-              /night
-            </p>
+          <div className="w-3/5 p-2">
+            <div className="border bg-[#303030] border-black min-h-full">
+              <p className=" lg:flex lg:flex-col md:text-xl  font-semibold lg:text-2xl">
+                <span className="text-red-500">Description:</span>
+                <span className="md:text-sm lg:w-[60%] font-normal lg:text-base">
+                  {roomArr[0]?.description}
+                </span>
+              </p>
+              <p className="pt-2">
+                <span className="lg:text-2xl text-red-500 md:text-xl font-bold">
+                  ${roomArr[0]?.price}
+                </span>
+                /night
+              </p>
+            </div>
           </div>
         </div>
         <div className="bg-gray-300  h-[2px] "></div>
-        <div className="flex">
-          <div className="w-2/3">
-            <div className="Left-Section">
-              <p className="p-4 md:text-xl lg:text-2xl ">
-                <span className=" md:text-base lg:text-base">{location}</span>
-              </p>
-              <div className="m-2 pt-2 md:text-xl lg:text-2xl  ">
-                <span className="md:text-xl text-red-500 font-semibold lg:text-2xl">
-                  Features:
-                </span>
-                <div className=" md:text-sm lg:text-base ">
+        <div className="flex ">
+          <div className="w-2/3 min-h-full">
+            <div className="Left-Section p-2">
+             
+              <div className=" bg-[#303030] border border-black">
+                <div className=" sm:text-sm flex flex-col gap-4 lg:text-xl">
                   <p className="">
-                    <span className="font-semibold ">Beds:</span>{" "}
+                    <span className="font-semibold ">Beds: </span>
                     {roomArr[0]?.Beds}
                   </p>
-                  <p className=" px-2">
-                    <span className="font-semibold ">Air-Conditioning:</span>
+                  <p className="">
+                    <span className="font-semibold ">Air-Conditioning: </span>
                     {AirC}
                   </p>
-                  <p className=" px-2">
+                  <p className=" ">
                     <span className="font-semibold ">Breakfast:</span>{" "}
                     {breakfast}
                   </p>
-                  <p className=" px-2">
+                  <p className=" ">
                     <span className="font-semibold ">Wifi:</span> {wifi}
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="bg-gray-300 w-[2px] "></div>
-          <div className="Right-Section bg-green-500 mt-2 p-2 mx-2 w-1/3">
+          <div className="bg-gray-300 w-[2px] min-h-full "></div>
+          <div className="w-1/3 p-2" >
+          <div className="Right-Section border border-black bg-green-500 w-full h-full">
             ksjdf
+            </div>
           </div>
         </div>
       </div>

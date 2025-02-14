@@ -15,8 +15,8 @@ interface Props {
 const RoomCard = ({ room }: Props) => {
   return (
     <>
-      <div className="p-4 flex bg-white flex-col justify-between gap-2 border-2 border-black rounded-lg h-96 m-4 w-72">
-        <div className="img w-full min-h-[50%]">
+      <div className="p-4 hover:scale-105 transition-all flex bg-[#303030] flex-col justify-between gap-2 border-2 border-black rounded-lg h-86 m-4 w-80">
+        <div className="img w-full min-h-[40%]">
           {" "}
           <Image
             src={room.images?.length > 0 ? room.images[0] : "/images.jpg"}
@@ -27,13 +27,13 @@ const RoomCard = ({ room }: Props) => {
           />{" "}
         </div>
         <div>
-          <div className="roomName p-2 font-semibold">{room.name}</div>{" "}
-          <div className="roomPrice pt-2 px-2 border-t-2 border-black text-sm">
+          <div className="roomName p-2">{room.name}</div>{" "}
+          <div className="roomPrice px-2 text-sm">
             <span className="font-semibold">${room.price}</span>
             /night
           </div>
         </div>
-        <button className="roomDetailButton p-2 rounded-md text-center border w-full bg-purple-600 text-white font-semibold">
+        <button className="roomDetailButton p-2 rounded-md text-center border relative bottom-0 border-black w-full bg-purple-700 font-semibold">
           <Link href={`/rooms/${room.roomId}`}>
           Details
           </Link>
