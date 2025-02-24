@@ -1,6 +1,8 @@
 import React from "react";
-import type { Metadata, ResolvingMetadata } from "next";
-import Image from "next/image";
+import type { Metadata } from "next";
+import { TfiMinus } from "react-icons/tfi";
+import ImageComponent from "@/components/ImageComponent";
+import BreakerHorizontal from "@/components/BreakerHorizontal";
 
 interface props {
   params: Promise<{ roomId: string }>;
@@ -54,77 +56,87 @@ export default async function page({ params }: props) {
   const breakfast = roomArr[0].isBreakfastAvailable ? "Yes" : "No";
   const AirC = roomArr[0].isAirConditioned ? "Yes" : "No";
   const wifi = roomArr[0].isWifiAvailable ? "Yes" : "No";
+  const photo = roomArr[0].images[0];
   // console.log(roomArr);
 
   return (
     <>
-      <div className=" min-h-screen ">
-        <div className="bg-purple-600 flex justify-between">
-          <h2 className=" lg:text-5xl text-white md:text-3xl">
+      <div className="backdrop-blur-lg  min-h-screen">
+        <div className=" flex py-4 justify-between gap-4 border-b-2 border-gray-600">
+          <h2 className=" lg:text-4xl ml-20 pl-2 md:text-xl">
             {roomArr[0]?.name ?? "No name"}
           </h2>
-          <p className="md:text-xl lg:text-2xl text-white">
-                <span className=" md:text-base lg:text-lg">{location}</span>
-              </p>
+          <p className="md:text-base lg:text-lg px-4 content-end ">
+            {location}
+          </p>
         </div>
-
-        <div className="flex flex-col lg:flex-row">
-          {" "}
-          {/* Add gap-4 later*/}
-          <div className="img w-2/5 min-h-[40vh] p-2">
-            <div className="border h-full bg-[#303030] border-black">Hello</div>
-          </div>
-          <div className="bg-gray-300 w-[2px]"></div>
-          <div className="w-3/5 p-2">
-            <div className="border bg-[#303030] border-black min-h-full">
-              <p className=" lg:flex lg:flex-col md:text-xl  font-semibold lg:text-2xl">
-                <span className="text-red-500">Description:</span>
-                <span className="md:text-sm lg:w-[60%] font-normal lg:text-base">
-                  {roomArr[0]?.description}
-                </span>
-              </p>
-              <p className="pt-2">
-                <span className="lg:text-2xl text-red-500 md:text-xl font-bold">
-                  ${roomArr[0]?.price}
-                </span>
-                /night
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-gray-300  h-[2px] "></div>
         <div className="flex ">
-          <div className="w-2/3 min-h-full">
-            <div className="Left-Section p-2">
-             
-              <div className=" bg-[#303030] border border-black">
-                <div className=" sm:text-sm flex flex-col gap-4 lg:text-xl">
-                  <p className="">
-                    <span className="font-semibold ">Beds: </span>
-                    {roomArr[0]?.Beds}
-                  </p>
-                  <p className="">
-                    <span className="font-semibold ">Air-Conditioning: </span>
-                    {AirC}
-                  </p>
-                  <p className=" ">
-                    <span className="font-semibold ">Breakfast:</span>{" "}
-                    {breakfast}
-                  </p>
-                  <p className=" ">
-                    <span className="font-semibold ">Wifi:</span> {wifi}
-                  </p>
+          <div className="p-4">
+            {" "}
+            <div className="flex justify-evenly">
+              <div className="img min-w-3/5">
+                <div>
+                  <ImageComponent photo={photo} />
+                </div>
+              </div>
+              <div className="w-2/5">
+                <div className="">
+                  <div className="pr-4">
+                    <p className=" lg:flex lg:flex-col md:text-xl  font-semibold lg:text-2xl">
+                      <span className="">Description:</span>
+                      <span className="md:text-sm   font-normal lg:text-base">
+                        {roomArr[0]?.description}
+                      </span>
+                    </p>
+                    <p className="pt-4  ">
+                      <span className="lg:text-2xl  md:text-xl font-semibold">
+                        ${roomArr[0]?.price}
+                      </span>
+                      /night
+                    </p>
+                    <div className="features md:text-sm  font-normal lg:text-base gap-4">
+                      <p className=" lg:flex lg:flex-col pt-4 md:text-xl  font-semibold lg:text-2xl">
+                        <span className="">Accessories:</span>
+                      </p>
+                      <div className="pl-2">
+                        <p className="pt-2 flex gap-2">
+                          <span className="content-center">
+                            <TfiMinus />
+                          </span>
+                          <span className="font-semibold ">Beds: </span>
+                          {roomArr[0]?.Beds}
+                        </p>
+                        <p className="pt-2 flex gap-2">
+                          <span className="content-center">
+                            <TfiMinus />
+                          </span>
+                          <span className="font-semibold ">
+                            Air-Conditioning:{" "}
+                          </span>
+                          {AirC}
+                        </p>
+                        <p className="pt-2 flex gap-2">
+                          <span className="content-center">
+                            <TfiMinus />
+                          </span>
+                          <span className="font-semibold ">Breakfast:</span>{" "}
+                          {breakfast}
+                        </p>
+                        <p className="pt-2 flex gap-2">
+                          <span className="content-center">
+                            <TfiMinus />
+                          </span>
+                          <span className="font-semibold ">Wifi:</span> {wifi}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="bg-gray-300 w-[2px] min-h-full "></div>
-          <div className="w-1/3 p-2" >
-          <div className="Right-Section border border-black bg-green-500 w-full h-full">
-            ksjdf
-            </div>
-          </div>
         </div>
+        <BreakerHorizontal />
       </div>
     </>
   );
