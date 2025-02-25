@@ -9,7 +9,7 @@ const ImageComponent = ({ photo }: props) => {
   return (
     <>
       <div>
-        <Image className="min-w-full rounded-xl" width={900} height={400} src={photo} alt={""} />
+        <Image className="shadow-lg border border-gray-200 transition-all hover:shadow-xl rounded-xl" width={900} height={400} src={photo} alt={""} />
       </div>
     </>
   );

@@ -61,52 +61,52 @@ export default async function page({ params }: props) {
 
   return (
     <>
-      <div className="backdrop-blur-lg  min-h-screen">
-        <div className=" flex py-4 justify-between gap-4 border-b-2 border-gray-600">
-          <h2 className=" lg:text-4xl ml-20 pl-2 md:text-xl">
+      <div className="backdrop-blur-lg min-h-screen">
+        <div className="lg:flex md:pt-2 lg:pt-4 container mx-auto lg:justify-between lg:gap-4 md:gap-2">
+          <h2 className="lg:text-4xl font-semibold md:px-2 lg:px-4 md:text-xl">
             {roomArr[0]?.name ?? "No name"}
           </h2>
-          <p className="md:text-base lg:text-lg px-4 content-end ">
+          <p className="md:text-sm md:px-2 lg:text-lg lg:px-4 content-end">
             {location}
           </p>
         </div>
-        <div className="flex ">
-          <div className="p-4">
+        <div className="mx-auto container">
+          <div className="lg:p-4 md:p-2">
             {" "}
-            <div className="flex justify-evenly">
-              <div className="img min-w-3/5">
-                <div>
+            <div className="lg:flex container gap-4">
+              <div className="img md:px-4 min-h-[50vh]">
+                <div className="w-full">
                   <ImageComponent photo={photo} />
                 </div>
               </div>
-              <div className="w-2/5">
-                <div className="">
-                  <div className="pr-4">
-                    <p className=" lg:flex lg:flex-col md:text-xl  font-semibold lg:text-2xl">
-                      <span className="">Description:</span>
-                      <span className="md:text-sm   font-normal lg:text-base">
+              <div className="lg:w-2/5 md:pt-2 md:w-4/5">
+                <div>
+                  <div>
+                    <p className="flex md:flex-col lg:flex-col md:text-xl font-semibold lg:text-2xl">
+                      <span>Description:</span>
+                      <span className="md:text-sm font-normal lg:text-base">
                         {roomArr[0]?.description}
                       </span>
                     </p>
-                    <p className="pt-4  ">
-                      <span className="lg:text-2xl  md:text-xl font-semibold">
+                    <p className="md:pt-2 lg:pt-4 md:text-sm lg:text-base">
+                      <span className="lg:text-2xl md:text-xl font-semibold">
                         ${roomArr[0]?.price}
                       </span>
                       /night
                     </p>
                     <div className="features md:text-sm  font-normal lg:text-base gap-4">
-                      <p className=" lg:flex lg:flex-col pt-4 md:text-xl  font-semibold lg:text-2xl">
-                        <span className="">Accessories:</span>
+                      <p className=" lg:flex lg:flex-col md:pt-2 lg:pt-4 md:text-xl font-semibold lg:text-2xl">
+                        Accessories:
                       </p>
-                      <div className="pl-2">
-                        <p className="pt-2 flex gap-2">
+                      <div className="md:pl-2 lg:pl-4">
+                        <p className="lg:pt-2 md:pt-1 flex gap-2">
                           <span className="content-center">
                             <TfiMinus />
                           </span>
                           <span className="font-semibold ">Beds: </span>
                           {roomArr[0]?.Beds}
                         </p>
-                        <p className="pt-2 flex gap-2">
+                        <p className="lg:pt-2 md:pt-1 flex gap-2">
                           <span className="content-center">
                             <TfiMinus />
                           </span>
@@ -115,14 +115,14 @@ export default async function page({ params }: props) {
                           </span>
                           {AirC}
                         </p>
-                        <p className="pt-2 flex gap-2">
+                        <p className="lg:pt-2 md:pt-1 flex gap-2">
                           <span className="content-center">
                             <TfiMinus />
                           </span>
                           <span className="font-semibold ">Breakfast:</span>{" "}
                           {breakfast}
                         </p>
-                        <p className="pt-2 flex gap-2">
+                        <p className="lg:pt-2 md:pt-1 flex gap-2">
                           <span className="content-center">
                             <TfiMinus />
                           </span>
@@ -136,7 +136,7 @@ export default async function page({ params }: props) {
             </div>
           </div>
         </div>
-        <BreakerHorizontal />
+        {/* <BreakerHorizontal /> */}
       </div>
     </>
   );

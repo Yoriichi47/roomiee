@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Geist, Geist_Mono } from "next/font/google";
+import {Josefin_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const josefinSans = Josefin_Sans({
+  variable: "--font-josefin-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-});
+})
 
 export const metadata: Metadata = {
   title: "Homepage - Roomiee",
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} text-black bg-[url('/bg.jpg')] bg-cover font-sans ${geistMono.variable} antialiased`}
+        className={`${josefinSans.variable} text-black bg-cover font-sans antialiased`}
       >
         < Header />
         {children}
