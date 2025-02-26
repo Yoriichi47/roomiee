@@ -56,8 +56,8 @@ export default async function page({ params }: props) {
   const breakfast = roomArr[0].isBreakfastAvailable ? "Yes" : "No";
   const AirC = roomArr[0].isAirConditioned ? "Yes" : "No";
   const wifi = roomArr[0].isWifiAvailable ? "Yes" : "No";
-  const photo = roomArr[0].images[0];
-  // console.log(roomArr);
+  const photo = roomArr[0].images;
+  // console.log("Photos: ", photo)
 
   return (
     <>
