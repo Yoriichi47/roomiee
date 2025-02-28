@@ -28,10 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${josefinSans.variable} text-black bg-cover font-sans antialiased`}
+        className={`${josefinSans.variable} flex flex-col min-h-screen text-black bg-cover font-sans antialiased`}
       >
         < Header />
-        {children}
+        <main className="flex-grow">{children} </main>
         < Footer />
       </body>
       <Script src="https://kit.fontawesome.com/b14b4f59b2.js"></Script>

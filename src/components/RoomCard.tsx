@@ -15,8 +15,8 @@ interface Props {
 const RoomCard = ({ room }: Props) => {
   return (
     <>
-      <div className="p-4 transform transition-all flex backdrop-blur-2xl flex-col justify-between gap-2 shadow-lg m-2 hover:shadow-2xl rounded-lg w-80">
-        <div className="img w-full min-h-[40%]">
+      <div className="p-4 border-2 border-gray-200 transform transition-all flex backdrop-blur-2xl flex-col justify-between gap-2 shadow-lg m-2 hover:shadow-2xl rounded-lg w-80">
+        <div className="img w-full lg:min-h-[40%]">
           {" "}
           <Image
             src={room.images?.length > 0 ? room.images[0] : "/images.jpg"}

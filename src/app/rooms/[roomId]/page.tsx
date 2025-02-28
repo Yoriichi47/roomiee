@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import { TfiMinus } from "react-icons/tfi";
 import ImageComponent from "@/components/ImageComponent";
-import BreakerHorizontal from "@/components/BreakerHorizontal";
 
 interface props {
   params: Promise<{ roomId: string }>;
@@ -61,7 +60,7 @@ export default async function page({ params }: props) {
 
   return (
     <>
-      <div className="backdrop-blur-lg min-h-screen">
+      <div className="min-h-screen">
         <div className="lg:flex md:pt-2 lg:pt-4 container mx-auto lg:justify-between lg:gap-4 md:gap-2">
           <h2 className="lg:text-4xl font-semibold md:px-2 lg:px-4 md:text-xl">
             {roomArr[0]?.name ?? "No name"}
