@@ -1,5 +1,4 @@
 import { prisma } from "@/prisma";
-import { ErrorBoundaryHandler } from "next/dist/client/components/error-boundary";
 import { NextRequest, NextResponse } from "next/server";
 
 export const allRooms = async (
