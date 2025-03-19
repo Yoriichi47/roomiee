@@ -1,5 +1,5 @@
-"use client";
-import React, { useState } from "react";
+// "use client";
+import React from "react";
 import Link from "next/link";
 import {
     Menubar,
@@ -9,13 +9,16 @@ import {
     MenubarSeparator,
     MenubarTrigger,
   } from "@/components/ui/menubar"
+import { auth, signOut } from "@/auth";
 
-const Header = () => {
-  const [dropDown, setDropDown] = useState(false);
+const Header = async () => {
+  // const [dropDown, setDropDown] = useState(false);
 
-  const handleDropDown = () => {
-    setDropDown(!dropDown);
-  };
+  // const handleDropDown = () => {
+  //   setDropDown(!dropDown);
+  // };
+
+  const session = await auth()
 
   return (
     <nav className="flex justify-between items-center py-2 lg:py-4 px-8 border-b-4 border-slate-400">
@@ -30,16 +33,13 @@ const Header = () => {
       </MenubarMenu>
       {/* Add the session logic here */}
       <MenubarMenu>
-      <MenubarTrigger className="hover:bg-gray-200 transition-all">Login</MenubarTrigger>
+
+      { session ? <MenubarTrigger className="hover:bg-gray-200 transition-all"><Link href="/api/auth/signout">Logout</Link></MenubarTrigger> : <MenubarTrigger className="hover:bg-gray-200 transition-all"><Link href="/signin">Login</Link></MenubarTrigger>}
+      
       </MenubarMenu>
-      <MenubarMenu>
-      <MenubarTrigger className="hover:bg-gray-200 transition-all">User</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem inset>Profile</MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem inset>Logout</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
+      
+      {session ? <MenubarMenu> <MenubarTrigger className="hover:bg-gray-200 transition-all"><Link href="/signin">Dashboard</Link></MenubarTrigger></MenubarMenu>: ""}
+
       {/* Finish the session logic here */}
     </Menubar>
     </div>

@@ -1,18 +1,19 @@
-
+import { auth } from "@/auth";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import HomePage from "@/components/HomePage";
 import { Metadata } from "next";
 
-
 interface PageProps {
-  searchParams: {
+  searchParams: Promise<{
     city?: string;
     state?: string;
     country?: string;
     [key: string]: string | string[] | undefined;
-  };
+  }>;
 }
 
-const fetchRoomDetail = async (searchParams: PageProps['searchParams']) => {
+const fetchRoomDetail = async (searchParams: Awaited<PageProps['searchParams']>) => {
   try {
     const queryParams = new URLSearchParams();
     
@@ -22,12 +23,12 @@ const fetchRoomDetail = async (searchParams: PageProps['searchParams']) => {
     if (searchParams.country) queryParams.append('country', searchParams.country);
     
     // Handle any other parameters
-    const otherKeys = Object.keys(searchParams).filter(
-      key => !['city', 'state', 'country'].includes(key)
+    const entries = Object.entries(searchParams);
+    const otherEntries = entries.filter(
+      ([key]) => !['city', 'state', 'country'].includes(key)
     );
     
-    for (const key of otherKeys) {
-      const value = searchParams[key];
+    for (const [key, value] of otherEntries) {
       if (typeof value === 'string') {
         queryParams.append(key, value);
       } else if (Array.isArray(value)) {
@@ -38,7 +39,7 @@ const fetchRoomDetail = async (searchParams: PageProps['searchParams']) => {
     const queryString = queryParams.toString();
     const url = `http://localhost:3000/api/rooms${queryString ? `?${queryString}` : ""}`;
     
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: 'no-store' });
     const data = await res.json();
 
     if (data?.success && Array.isArray(data.rooms)) {
@@ -59,18 +60,25 @@ export const metadata: Metadata = {
 };
 
 export default async function Page({ searchParams }: PageProps) {
-  const rooms = await fetchRoomDetail(searchParams);
+  // Await searchParams before accessing its properties
+  const resolvedSearchParams = await searchParams;
+  
+  const rooms = await fetchRoomDetail(resolvedSearchParams);
 
-  // Prepare initial filters for the search bar
+  // Create initialFilters using resolved searchParams
   const initialFilters = {
-    city: searchParams.city || "",
-    state: searchParams.state || "",
-    country: searchParams.country || "",
+    city: resolvedSearchParams.city || "",
+    state: resolvedSearchParams.state || "",
+    country: resolvedSearchParams.country || "",
   };
+
+  const session = await auth()
 
   return (
     <>
+      <Header />
       <HomePage rooms={rooms} initialFilters={initialFilters} />
+      <Footer />
     </>
   );
 }

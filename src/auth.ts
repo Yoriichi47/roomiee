@@ -1,32 +1,25 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "./prisma";
-import { redirect } from "next/navigation";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
       credentials: {
-        email: { type: "email" },
-        password: { type: "password" },
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        const enteredEmail = credentials.email as string;
-        const enteredPassword = credentials.password as string
+        const enteredEmail ="test@test.com"
+        const enteredPassword = "PasswordTest"
 
         if (
           credentials.email ===
-          prisma.user.findUnique({ where: { email: enteredEmail } })
+          enteredEmail && credentials.password === enteredPassword
         ) {
-            redirect("/")
-            // return { email: enteredEmail, password: enteredPassword };
+            return { email: enteredEmail, password: enteredPassword };
         } else {
-          const user = await prisma.user.create({ data: {
-            name: enteredEmail.split("@")[0],
-            email: enteredEmail,
-            password: enteredPassword,
-          } });
-          return { email: user.email, password: user.password };
+         throw new Error("Invalid credentials");
         }
       },
     }),

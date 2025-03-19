@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import {Josefin_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const josefinSans = Josefin_Sans({
   variable: "--font-josefin-sans",
@@ -28,11 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${josefinSans.variable} flex flex-col min-h-screen text-black bg-cover font-sans antialiased`}
+        className={`${josefinSans.variable} flex flex-col min-h-screen text-black bg-gray-100 bg-cover font-sans antialiased`}
       >
-        < Header />
         <main className="flex-grow">{children} </main>
-        < Footer />
       </body>
       <Script src="https://kit.fontawesome.com/b14b4f59b2.js"></Script>
     </html>

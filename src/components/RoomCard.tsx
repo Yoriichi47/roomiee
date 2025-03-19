@@ -15,15 +15,15 @@ interface Props {
 const RoomCard = ({ room }: Props) => {
   return (
     <>
-      <div className="p-4 border-2 border-gray-200 transform transition-all flex backdrop-blur-2xl flex-col justify-between gap-2 shadow-lg m-2 hover:shadow-2xl rounded-lg w-80">
+      <div className="p-4 border-2 border-gray-200 transform transition-all flex flex-col justify-between gap-2 shadow-lg m-2 hover:shadow-2xl rounded-lg w-80">
         <div className="img w-full lg:min-h-[40%]">
           {" "}
           <Image
             src={room.images?.length > 0 ? room.images[0] : "/images.jpg"}
-            className="rounded-md"
+            className="rounded-md h-40"
             alt={room.name}
             width={400}
-            height={100}
+            height={200}
           />{" "}
         </div>
         <div>
@@ -33,7 +33,7 @@ const RoomCard = ({ room }: Props) => {
             /night
           </div>
         </div>
-        <button className="roomDetailButton p-2 transition-transform hover:scale-[1.02] rounded-md text-center border text-white relative bottom-0 border-black w-full bg-purple-700 font-semibold">
+        <button className="roomDetailButton p-2 transition-transform rounded-md text-center text-white relative bottom-0  w-full bg-blue-600 hover:bg-blue-700 font-semibold">
           <Link href={`/rooms/${room.roomId}`}>
           Details
           </Link>
