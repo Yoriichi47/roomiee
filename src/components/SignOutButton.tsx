@@ -4,7 +4,8 @@ import React from 'react'
 
 const SignOutButton = () => {
   return (
-    <button onClick={() => signOut()}>Logout</button>
+    // <button onClick={() => signOut()}>Logout</button>
+    <button >Logout</button>
   )
 }
 
