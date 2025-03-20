@@ -10,6 +10,7 @@ import {
     MenubarTrigger,
   } from "@/components/ui/menubar"
 import { auth, signOut } from "@/auth";
+import SignOutButton from "./SignOutButton";
 
 const Header = async () => {
   // const [dropDown, setDropDown] = useState(false);
@@ -34,7 +35,7 @@ const Header = async () => {
       {/* Add the session logic here */}
       <MenubarMenu>
 
-      { session ? <MenubarTrigger className="hover:bg-gray-200 transition-all"><Link href="/api/auth/signout">Logout</Link></MenubarTrigger> : <MenubarTrigger className="hover:bg-gray-200 transition-all"><Link href="/signin">Login</Link></MenubarTrigger>}
+      { session ? <MenubarTrigger className="hover:bg-gray-200 transition-all"><SignOutButton /></MenubarTrigger> : <MenubarTrigger className="hover:bg-gray-200 transition-all"><Link href="/signin">Login</Link></MenubarTrigger>}
       
       </MenubarMenu>
       

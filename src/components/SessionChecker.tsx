@@ -6,7 +6,7 @@ const SessionChecker = async () => {
     const session = await auth()
 
   return (
-    <div>{}</div>
+    <div>{session?.user?.email}</div>
   )
 }
 

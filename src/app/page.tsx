@@ -1,7 +1,7 @@
-import { auth } from "@/auth";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import HomePage from "@/components/HomePage";
+import SessionChecker from "@/components/SessionChecker";
 import { Metadata } from "next";
 
 interface PageProps {
@@ -72,11 +72,10 @@ export default async function Page({ searchParams }: PageProps) {
     country: resolvedSearchParams.country || "",
   };
 
-  const session = await auth()
-
   return (
     <>
       <Header />
+    <SessionChecker />
       <HomePage rooms={rooms} initialFilters={initialFilters} />
       <Footer />
     </>

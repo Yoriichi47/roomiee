@@ -1,5 +1,5 @@
 import { auth, signIn } from "@/auth";
-import { executeAction } from "@/executeAction";
+import { signUp } from "@/signupAction";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -15,17 +15,16 @@ const page = async () => {
       <div className="bg-gray-100 flex justify-center items-center min-h-screen">
         <div className="bg-white flex flex-col transform transition-all shadow-2xl border-2 p-6 w-[30vw] gap-4 rounded-2xl border-black">
           <div className="text-center ">
-            <h1 className="text-3xl font-bold">Sign In</h1>
+            <h1 className="text-3xl font-bold">Create an Account</h1>
           </div>
           <form
             className="flex w-full gap-4"
             action={async (formData: FormData) => {
               "use server";
-              await executeAction({
-                actionFn: async () => {
-                  await signIn("credentials", formData);
-                }
-              })
+              const res = await signUp(formData);
+              if (res.success) {
+                redirect("/signin");
+              }
             }}
           >
             <div className="flex w-full flex-col gap-4">
@@ -54,7 +53,7 @@ const page = async () => {
                 {" "}
                 Sign In{" "}
               </button>
-              <Link href="/signup">Sign up</Link>
+              <Link href="/signin">Signin</Link>
             </div>
           </form>
         </div>
