@@ -1,49 +1,35 @@
 // "use client";
 import React from "react";
 import Link from "next/link";
-import {
-    Menubar,
-    MenubarContent,
-    MenubarItem,
-    MenubarMenu,
-    MenubarSeparator,
-    MenubarTrigger,
-  } from "@/components/ui/menubar"
 import { auth, signOut } from "@/auth";
 import SignOutButton from "./SignOutButton";
 
 const Header = async () => {
-  // const [dropDown, setDropDown] = useState(false);
-
-  // const handleDropDown = () => {
-  //   setDropDown(!dropDown);
-  // };
 
   const session = await auth()
 
   return (
     <nav className="flex justify-between items-center py-2 lg:py-4 px-8 border-b-4 border-slate-400">
-      <div className="Logo px-2 md:text-2xl lg:text-4xl font-bold text-purple-600"> <Link href="/"> Roomiee </Link> </div>
-      <div className="hidden md:block">
-      <Menubar className="bg-gray-100 border-none">
-      <MenubarMenu>
-        <MenubarTrigger className="hover:bg-gray-200 transition-all">Dashboard</MenubarTrigger>
-      </MenubarMenu>
-      <MenubarMenu>
-      <MenubarTrigger className="hover:bg-gray-200 transition-all">Bookings</MenubarTrigger>
-      </MenubarMenu>
-      {/* Add the session logic here */}
-      <MenubarMenu>
+      <div className="Logo px-2 md:text-2xl lg:text-4xl font-bold text-blue-600"> <Link href="/"> Roomiee </Link> </div>
+        <div className="flex bg-gray-200 rounded-md p-1 gap-1 border-2 border-slate-400">
+          <div>
+            <button className="hover:bg-gray-300 transition-all rounded-sm px-1">Dashboard</button>
+          </div>
+          <div>
+            <button className="hover:bg-gray-300 transition-all rounded-sm px-1">Bookings</button>
+          </div>
+          {/* Add the session logic here */}
+          <div>
 
-      { session ? <MenubarTrigger className="hover:bg-gray-200 transition-all"><SignOutButton /></MenubarTrigger> : <MenubarTrigger className="hover:bg-gray-200 transition-all"><Link href="/signin">Login</Link></MenubarTrigger>}
-      
-      </MenubarMenu>
-      
-      {session ? <MenubarMenu> <MenubarTrigger className="hover:bg-gray-200 transition-all"><Link href="/signin">Dashboard</Link></MenubarTrigger></MenubarMenu>: ""}
+            {session ? <div className="hover:bg-gray-300 transition-all rounded-sm px-1"><SignOutButton /></div> : <button className="hover:bg-gray-300 transition-all rounded-sm px-1"><Link href="/signin">Login</Link></button>}
 
-      {/* Finish the session logic here */}
-    </Menubar>
-    </div>
+          </div>
+
+          {session ? <div> <button className="hover:bg-gray-300 transition-all"><Link href="/signin">Profile</Link></button></div> : ""}
+
+          {/* Finish the session logic here */}
+        </div>
+      
     </nav>
   );
 };
