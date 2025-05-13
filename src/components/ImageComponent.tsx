@@ -12,7 +12,7 @@ interface props {
 const ImageComponent = ({ photo }: props) => {
   return (
     <>
-      <div className="shadow-lg transition-all hover:shadow-xl min-h-[50vh]">
+      <div className="shadow-xl transition-all hover:shadow-xl min-h-[50vh] w-[40vw]">
         <Swiper
           className="rounded-xl lg:w-[40vw] h-full"
           modules={[Navigation, Pagination, Autoplay]}

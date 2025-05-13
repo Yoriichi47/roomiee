@@ -1,7 +1,15 @@
 import React from "react";
 import type { Metadata } from "next";
 import { TfiMinus } from "react-icons/tfi";
+import { FaLocationDot } from "react-icons/fa6";
 import ImageComponent from "@/components/ImageComponent";
+import { LiaBedSolid } from "react-icons/lia";
+import { TbAirConditioning } from "react-icons/tb";
+import { IoFastFoodOutline } from "react-icons/io5";
+import { FaWifi } from "react-icons/fa6";
+import Footer from "@/components/Footer";
+import { IoHomeOutline } from "react-icons/io5";
+import Link from "next/link";
 
 interface props {
   params: Promise<{ roomId: string }>;
@@ -56,87 +64,72 @@ export default async function page({ params }: props) {
   const AirC = roomArr[0].isAirConditioned ? "Yes" : "No";
   const wifi = roomArr[0].isWifiAvailable ? "Yes" : "No";
   const photo = roomArr[0].images;
-  // console.log("Photos: ", photo)
 
   return (
     <>
       <div className="min-h-screen">
-        <div className="lg:flex md:pt-2 lg:pt-4 container mx-auto lg:justify-between lg:gap-4 md:gap-2">
-          <h2 className="lg:text-4xl font-semibold md:px-2 lg:px-4 md:text-xl">
-            {roomArr[0]?.name ?? "No name"}
-          </h2>
-          <p className="md:text-sm md:px-2 lg:text-lg lg:px-4 content-end">
-            {location}
-          </p>
-        </div>
-        <div className="mx-auto container">
-          <div className="lg:p-4 md:p-2">
-            {" "}
-            <div className="lg:flex container gap-4">
-              <div className="img md:px-4 min-h-[50vh]">
-                <div className="w-full">
-                  <ImageComponent photo={photo} />
-                </div>
-              </div>
-              <div className="lg:w-2/5 md:pt-2 md:w-4/5">
-                <div>
-                  <div>
-                    <p className="flex md:flex-col lg:flex-col md:text-xl font-semibold lg:text-2xl">
-                      <span>Description:</span>
-                      <span className="md:text-sm font-normal lg:text-base">
-                        {roomArr[0]?.description}
-                      </span>
-                    </p>
-                    <p className="md:pt-2 lg:pt-4 md:text-sm lg:text-base">
-                      <span className="lg:text-2xl md:text-xl font-semibold">
-                        ${roomArr[0]?.price}
-                      </span>
-                      /night
-                    </p>
-                    <div className="features md:text-sm  font-normal lg:text-base gap-4">
-                      <p className=" lg:flex lg:flex-col md:pt-2 lg:pt-4 md:text-xl font-semibold lg:text-2xl">
-                        Accessories:
-                      </p>
-                      <div className="md:pl-2 lg:pl-4">
-                        <p className="lg:pt-2 md:pt-1 flex gap-2">
-                          <span className="content-center">
-                            <TfiMinus />
-                          </span>
-                          <span className="font-semibold ">Beds: </span>
-                          {roomArr[0]?.Beds}
-                        </p>
-                        <p className="lg:pt-2 md:pt-1 flex gap-2">
-                          <span className="content-center">
-                            <TfiMinus />
-                          </span>
-                          <span className="font-semibold ">
-                            Air-Conditioning:{" "}
-                          </span>
-                          {AirC}
-                        </p>
-                        <p className="lg:pt-2 md:pt-1 flex gap-2">
-                          <span className="content-center">
-                            <TfiMinus />
-                          </span>
-                          <span className="font-semibold ">Breakfast:</span>{" "}
-                          {breakfast}
-                        </p>
-                        <p className="lg:pt-2 md:pt-1 flex gap-2">
-                          <span className="content-center">
-                            <TfiMinus />
-                          </span>
-                          <span className="font-semibold ">Wifi:</span> {wifi}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div className="Header flex justify-between border-b-4 border-slate-400 sticky top-0 backdrop-blur-lg backdrop-filter z-10 py-2 px-8">
+          <div className="HeaderLeft px-2">
+            <h2 className="RoomName text-4xl font-bold ">
+              {roomArr[0]?.name ?? "No name"}
+            </h2>
+            <div className="RoomLocation flex items-center gap-1">
+              <p className="RoomPrice">
+                <span className="">${roomArr[0]?.price}</span>
+                /night
+              </p>
+            </div>
+          </div>
+          <div className="HeaderRight flex items-end">
+            <div className="flex items-center gap-1">
+              <FaLocationDot />
+              <p>{location}</p>
             </div>
           </div>
         </div>
-        {/* <BreakerHorizontal /> */}
+
+        <div className="RoomPhoto flex gap-2 p-6">
+          <div className=" mx-10 ">
+            <ImageComponent photo={photo} />
+          </div>
+          <div className="RoomDescription mr-10 flex flex-col mb-2 ">
+            <span className="text-lg font-semibold">Description:</span>
+
+            {roomArr[0]?.description}
+          </div>
+        </div>
+
+        <div className="AccessoryBox px-10 py-2">
+          <p className="AccessoryTitle text-lg font-semibold ">Accessories:</p>
+          <div className="AccessoryList text-sm ">
+            <p className="flex items-center gap-2 mx-2 ">
+              <LiaBedSolid />
+              <span className="">Beds: </span>
+              {roomArr[0]?.Beds}
+            </p>
+            <p className="flex items-center gap-2 mx-2 ">
+              <TbAirConditioning />
+              <span className="">Air-Conditioning: </span>
+              {AirC}
+            </p>
+            <p className="flex items-center gap-2 mx-2 ">
+              <IoFastFoodOutline />
+              <span className="">Breakfast:</span> {breakfast}
+            </p>
+            <p className="flex items-center gap-2 mx-2 ">
+              <FaWifi />
+              <span className="">Wifi:</span> {wifi}
+            </p>
+          </div>
+        </div>
       </div>
+        <div className="HomeButton flex justify-center items-center m-2">
+          <button className="flex items-center gap-2 bg-gray-200 rounded-md border-2 border-slate-400  hover:bg-gray-300 transition-all p-1">
+            <IoHomeOutline />
+            <Link href="/">Home</Link>
+            </button>
+        </div>
+        <Footer />
     </>
   );
 }

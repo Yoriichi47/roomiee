@@ -26,7 +26,7 @@ const SearchBarContainer = ({ initialFilters }: SearchBarProps) => {
         <div className=" ">
           <button
             onClick={() => setShowSearchBar(!showSearchBar)}
-            className="font-semibold md:p-2 lg:p-4 md:ml-auto bg-gray-100 hover:bg-gray-200 border-2 border-gray-400 duration-200 transition-all rounded-full"
+            className="font-semibold xs:p-1 md:p-2 lg:p-3 md:ml-auto bg-gray-100 hover:bg-gray-200 border-2 border-gray-400 duration-200 transition-all rounded-full"
           >
             <FiAlignJustify />
           </button>
