@@ -1,22 +1,54 @@
+"use server";
+import { NextResponse } from "next/server";
 import { executeAction } from "./executeAction";
 import { prisma } from "./prisma";
 import { schema } from "./zod";
 
-const signUp = async (formData: FormData) => {
-    return executeAction({
-actionFn: async () => {
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const validatedData = schema.parse({ email, password });
-    
-    await prisma.user.create({
-        data: {
-            email: validatedData.email.toLowerCase(),
-            password: validatedData.password,
-        },
+const signUp = async (email: string, password: string) => {
+  try {
+    const userEmail = email?.toString().toLowerCase();
+    const userPassword = password?.toString();
+
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        email: userEmail,
+      },
     });
-}
-    })
+
+    console.log("Existing user:", existingUser);
+
+    if (existingUser) {
+      console.log("User already exists");
+      return {
+        success: false,
+        message: "User already exists",
+      };
+    }
+
+    console.log("Creating new user with email:", userEmail);
+
+    const validatedData = schema.parse({
+      email: userEmail,
+      password: userPassword,
+    });
+
+    await prisma.user.create({
+      data: {
+        email: validatedData.email.toLowerCase(),
+        password: validatedData.password,
+      },
+    });
+    return {
+      success: true,
+      message: "User created successfully",
+    };
+  } catch (error) {
+    console.error("Error in signUp:", error);
+    return {
+      success: false,
+      message: "An error occurred during sign up",
+    };
+  }
 };
 
 export { signUp };
