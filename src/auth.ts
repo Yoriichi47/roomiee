@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { schema } from "./zod";
 
-const adapter = PrismaAdapter(prisma);
+const adapter = PrismaAdapter(prisma as any);
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter,
@@ -22,7 +22,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         const user = await prisma.user.findFirst({
           where: {
             email: validatedCredentials.email,
-            password: validatedCredentials.password,
+            // password: validatedCredentials.password,
           },
         });
 

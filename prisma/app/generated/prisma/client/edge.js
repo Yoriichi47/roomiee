@@ -197,7 +197,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Coding\\roomiee-master\\prisma\\app\\generated\\prisma\\client",
+      "value": "E:\\Roomiee\\roomiee\\prisma\\app\\generated\\prisma\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -211,11 +211,12 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Coding\\roomiee-master\\prisma\\schema.prisma",
+    "sourceFilePath": "E:\\Roomiee\\roomiee\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../../../.env"
   },
   "relativePath": "../../../..",
   "clientVersion": "6.7.0",

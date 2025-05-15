@@ -1,12 +1,14 @@
+"use client"
 import { auth } from '@/auth'
+import { useSession } from 'next-auth/react'
 import React from 'react'
 
-const SessionChecker = async () => {
+const SessionChecker = () => {
 
-    const session = await auth()
+    const {data: session} = useSession()
 
   return (
-    <div>{session?.user?.email}</div>
+    <div className='p-2'>Currently Logged in as: {session?.user?.name || session?.user?.email}</div>
   )
 }
 
