@@ -48,13 +48,7 @@ const handleSubmit = async (event: React.FormEvent) => {
 
   return (
     <>
-    <div className="HomeButton sticky top-1 mx-1">
-          <button className="flex items-center gap-2 bg-gray-200 rounded-md border-2 border-slate-400  hover:bg-gray-300 transition-all p-1">
-            <IoHomeOutline />
-            <Link href="/">Home</Link>
-            </button>
-        </div>
-      <div className="bg-gray-100 flex justify-center items-center min-h-screen">
+      <div className="bg-gray-100 flex justify-center m-10">
         <div className="bg-white flex flex-col transform transition-all shadow-2xl border-2 p-6 w-[30vw] gap-4 rounded-2xl border-black">
           <div className="text-center ">
             <h1 className="text-3xl font-bold">Create an Account</h1>

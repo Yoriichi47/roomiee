@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import {Josefin_Sans, Montserrat } from "next/font/google";
+import { Josefin_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
+import { Provider } from "react-redux";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
+import Header from "@/components/Header";
 
 const josefinSans = Josefin_Sans({
   variable: "--font-josefin-sans",
@@ -13,7 +15,7 @@ const josefinSans = Josefin_Sans({
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-})
+});
 
 export const metadata: Metadata = {
   title: "Homepage - Roomiee",
@@ -21,22 +23,25 @@ export const metadata: Metadata = {
 };
 
 interface Props {
-  session: Session | null
+  session: Session | null;
 }
 
 export default function RootLayout({
-  children, session
-}: Readonly<Props & {
-  children: React.ReactNode;
-}>) {
+  children,
+  session,
+}: Readonly<
+  Props & {
+    children: React.ReactNode;
+  }
+>) {
   return (
     <html lang="en">
       <body
         className={`${josefinSans.variable} flex flex-col min-h-screen text-black bg-gray-100 bg-cover font-sans antialiased`}
       >
-        <SessionProvider session={session}>
-        <main className="flex-grow">{children} </main>
-      </SessionProvider>
+          <SessionProvider session={session}><Header />
+            <main className="flex-grow">{children} </main>
+          </SessionProvider>
       </body>
       <Script src="https://kit.fontawesome.com/b14b4f59b2.js"></Script>
     </html>

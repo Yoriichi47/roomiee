@@ -13,33 +13,38 @@ interface PageProps {
   }>;
 }
 
-const fetchRoomDetail = async (searchParams: Awaited<PageProps['searchParams']>) => {
+const fetchRoomDetail = async (
+  searchParams: Awaited<PageProps["searchParams"]>
+) => {
   try {
     const queryParams = new URLSearchParams();
-    
+
     // Handle text inputs
-    if (searchParams.city) queryParams.append('city', searchParams.city);
-    if (searchParams.state) queryParams.append('state', searchParams.state);
-    if (searchParams.country) queryParams.append('country', searchParams.country);
-    
+    if (searchParams.city) queryParams.append("city", searchParams.city);
+    if (searchParams.state) queryParams.append("state", searchParams.state);
+    if (searchParams.country)
+      queryParams.append("country", searchParams.country);
+
     // Handle any other parameters
     const entries = Object.entries(searchParams);
     const otherEntries = entries.filter(
-      ([key]) => !['city', 'state', 'country'].includes(key)
+      ([key]) => !["city", "state", "country"].includes(key)
     );
-    
+
     for (const [key, value] of otherEntries) {
-      if (typeof value === 'string') {
+      if (typeof value === "string") {
         queryParams.append(key, value);
       } else if (Array.isArray(value)) {
-        value.forEach(val => queryParams.append(key, val));
+        value.forEach((val) => queryParams.append(key, val));
       }
     }
-    
+
     const queryString = queryParams.toString();
-    const url = `http://localhost:3000/api/rooms${queryString ? `?${queryString}` : ""}`;
-    
-    const res = await fetch(url, { cache: 'no-store' });
+    const url = `http://localhost:3000/api/rooms${
+      queryString ? `?${queryString}` : ""
+    }`;
+
+    const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
 
     if (data?.success && Array.isArray(data.rooms)) {
@@ -56,13 +61,13 @@ const fetchRoomDetail = async (searchParams: Awaited<PageProps['searchParams']>)
 };
 
 export const metadata: Metadata = {
-  title: "Homepage - Roomiee"
+  title: "Homepage - Roomiee",
 };
 
 export default async function Page({ searchParams }: PageProps) {
   // Await searchParams before accessing its properties
   const resolvedSearchParams = await searchParams;
-  
+
   const rooms = await fetchRoomDetail(resolvedSearchParams);
 
   // Create initialFilters using resolved searchParams
@@ -74,8 +79,8 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <Header />
-    <SessionChecker />
+      {/* <Header /> */}
+      <SessionChecker />
       <HomePage rooms={rooms} initialFilters={initialFilters} />
       <Footer />
     </>
