@@ -37,6 +37,7 @@ model User {
   password      String?
   emailVerified DateTime?
   image         String?
+  imageID       String?
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support

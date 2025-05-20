@@ -4,7 +4,7 @@ import { NextRequest } from 'next/server'
 import { AuthenticationChecker } from '@/middleware/auth';
 
 interface RequestContext{
-    params: Promise<{name?: string, email?: string, id?: string}>
+    params: Promise<{name?: string, email?: string}>
 }
 
 const router = createEdgeRouter<NextRequest, RequestContext>()

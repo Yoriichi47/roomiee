@@ -55,9 +55,9 @@ const UpdateProfile = () => {
 
   return (
     <>
-      <div className="bg-gray-100 flex m-10 justify-center  ">
+      <div className="bg-gray-100 flex m-20 justify-center  ">
         <div className="bg-white flex flex-col transform transition-all shadow-2xl border-2 p-6 w-[30vw] gap-4 rounded-2xl border-black">
-          <h1 className="text-3xl font-bold text-center">
+          <h1 className="text-2xl font-semibold text-center">
             Update your Profile
           </h1>
 

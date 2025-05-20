@@ -28,7 +28,7 @@ const Header = async () => {
         {session ? (
           <div>
             {" "}
-            <button className="hover:bg-gray-300 transition-all">
+            <button className="hover:bg-gray-300 transition-all rounded-sm px-1">
               <Link href="/user/profile">Profile</Link>
             </button>
           </div>

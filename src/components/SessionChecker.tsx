@@ -16,9 +16,11 @@ const SessionChecker = () => {
   )
   }
 
+  const userImage = session?.user?.image
+
   return (
     <>
-    {session ? <div className='p-2'>Currently Logged in as: {session?.user?.email}</div>: <div>User Not Logged In</div>}
+    {session ? <div className='p-2'>{userImage && (<img src={userImage} alt="User Profile" />)} Currently Logged in as: {session?.user?.email}</div>: <div>User Not Logged In</div>}
     </>
   )
 }
