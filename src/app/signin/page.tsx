@@ -4,7 +4,6 @@ import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signinAction } from "@/signinAction";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -12,32 +11,39 @@ const SignInPage = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const {data: session, status} = useSession()
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    if(status === "authenticated"){
-      alert("You are logged in")
-      router.push("/")
+    if (status === "authenticated") {
+      alert("You are logged in");
+      router.push("/");
     }
   }, [status, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setError("");
-  
-      const data = await signinAction(email, password)
-  
-      if (!data?.success) {
-        setError(data?.message || "An unknown error occurred");
-      } else {
-        await signIn("credentials", {
-          redirect: false,
-          email: email,
-          password: data?.dbPassword,
-        })
-      }
-    };
+    e.preventDefault();
+    setError("");
 
+    const data = await signIn("credentials", {
+      email: email,
+      password: password,
+      redirect: false,
+    });
+
+    if (data?.error) {
+  const errorMessage =
+    typeof data.error === "string"
+      ? data.error
+      : (data.error as any)?.message || "Unexpected error";
+
+  if (errorMessage === "CredentialsSignin") {
+    setError("Invalid email or password");
+  } else {
+    setError(errorMessage); // fallback if it's another string error
+  }
+}
+    
+  };
 
   return (
     <>
@@ -86,7 +92,9 @@ const SignInPage = () => {
           <button className="p-2 bg-white text-black rounded-md hover:bg-gray-100 border-2 border-black transition-colors">
             <Link href={"/signup"}>Sign Up</Link>
           </button>
-          <Link href="/forgotpassword" className="text-right text-sm underline">Forgot Password?</Link>
+          <Link href="/forgotpassword" className="text-right text-sm underline">
+            Forgot Password?
+          </Link>
         </div>
       </div>
     </>

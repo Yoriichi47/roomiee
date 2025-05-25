@@ -3,8 +3,11 @@ import { encode } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "./prisma";
 import { v4 as uuid } from "uuid";
+import bcrypt from "bcrypt";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { schema } from "./zod";
+import { isValid } from "zod";
+import { error } from "console";
 
 const adapter = PrismaAdapter(prisma as any);
 
@@ -20,19 +23,38 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         try {
           const validatedCredentials = schema.parse(credentials);
 
+          const userPassword = await prisma.user.findFirst({
+            where: {
+              email: validatedCredentials.email,
+            },
+          })
+
+          if(!userPassword) {
+            throw new Error("User not found");
+          }
+
+          const isValidPassword = await bcrypt.compare(
+            validatedCredentials.password,
+            userPassword?.password || ""
+          );
+
+          if (!isValidPassword) {
+            throw new Error("Invalid password");
+          }
+
           const user = await prisma.user.findUnique({
             where: {
               email: validatedCredentials.email,
-              password: validatedCredentials.password,
+              password: userPassword?.password || "",
             },
           });
 
           if (!user) {
-            return null;
+            throw new Error("User not found");
           }
 
           return user;
-          
+
         } catch (error) {
           if (error instanceof Error) {
             console.error("Error in authorize: ", error.message);
