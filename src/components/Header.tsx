@@ -1,11 +1,22 @@
-// "use client";
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Link from "next/link";
-import { auth, signOut } from "@/auth";
 import SignOutButton from "./SignOutButton";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import MoonLoader from "react-spinners/MoonLoader";
 
-const Header = async () => {
-  const session = await auth();
+const Header = () => {
+  const { data: session, status } = useSession()
+
+  const router = useRouter()
+
+  useEffect(() => {
+  
+      if(status === "loading"){
+        <MoonLoader size={10} />
+      }
+    }, [status, router]);
 
   return (
     <nav className="flex justify-between items-center py-2 lg:py-4 px-8 border-b-4 border-slate-400">

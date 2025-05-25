@@ -38,13 +38,14 @@ const UpdatePicture = () => {
     <>
       <div className="bg-gray-100 flex m-20 justify-center  ">
         <div className="bg-white flex flex-col transform transition-all shadow-2xl border-2 p-6 w-[30vw] gap-4 rounded-2xl border-black">
-          <h1 className="text-2xl font-semibold text-center">
+          <h1 className="lg:text-3xl md:text-2xl font-semibold text-center">
             Update your Picture
           </h1>
 
-          <form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
-            <div className="flex">
+          <form onSubmit={handleSubmit} className="flex mt-5 w-full flex-col gap-4">
+            <div className="flex mx-auto">
               <input
+              className="w-4/5 lg:text-base md:text-xs"
                 type="file"
                 accept="image/*"
                 onChange={async (e) => {

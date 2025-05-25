@@ -1,5 +1,5 @@
-import NextAuth from "next-auth";
-import { encode } from "next-auth/jwt"
+import NextAuth, { CredentialsSignin } from "next-auth";
+import { encode } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "./prisma";
 import { v4 as uuid } from "uuid";
@@ -16,8 +16,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials) => {
+      authorize: async (credentials, req) => {
         const validatedCredentials = schema.parse(credentials);
+
+        console.log("Validated Credentials: ", validatedCredentials);
 
         const user = await prisma.user.findFirst({
           where: {
@@ -45,6 +47,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return token;
     },
   },
+  // session:{
+  //   strategy: "jwt",
+  //   maxAge: 30 * 24 * 60 * 60, // 30 days
+  //   updateAge: 24 * 60 * 60, // 24 hours
+  // },
   jwt: {
     encode: async function (params) {
       if (params.token?.credentials) {
@@ -65,7 +72,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         }
         return sessionToken;
       }
-      return encode(params)
+      return encode(params);
     },
   },
 });

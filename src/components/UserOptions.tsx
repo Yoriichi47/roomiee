@@ -1,11 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { FaRegUser, FaRegImages } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 
 const UserOptions = () => {
-  
-    const menuOptions = [
+  const pathName = usePathname();
+
+  const menuOptions = [
     {
       name: "Update Profile",
       link: "/user/profile",
@@ -24,19 +28,26 @@ const UserOptions = () => {
   ];
 
   return (
-      <div className="flex flex-col gap-2 p-2">
-        {menuOptions.map((item, index) => (
-            <button className="border-2 hover:bg-gray-50 font-semibold bg-white transition-all drop-shadow-lg hover:drop-shadow-xl duration-300 border-black rounded-lg" key={index}>
-                <Link href={item.link}>
-                <div className="flex items-center justify-center gap-2 p-2">
-                {item.icon}
-                {item.name}
-                </div>
-                </Link>
-            </button>
-        ))}
-      </div>
-    );
+    <div className="flex flex-col gap-2 p-2">
+      {menuOptions.map((item, index) => {
+        const isActive = pathName === item.link;
+
+        return (
+          <Link
+            key={index}
+            href={item.link}
+            className={`flex items-center justify-center gap-2 p-2 rounded-lg border-2 font-semibold transition-all duration-300 drop-shadow-lg hover:drop-shadow-xl ${
+              isActive ? "bg-black text-white" : "bg-white hover:bg-gray-50 text-black"
+            }`}
+            aria-current={isActive ? "page" : undefined}
+          >
+            {item.icon}
+            {item.name}
+          </Link>
+        );
+      })}
+    </div>
+  );
 };
 
 export default UserOptions;

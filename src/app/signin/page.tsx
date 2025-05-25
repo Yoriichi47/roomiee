@@ -4,7 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { IoHomeOutline } from "react-icons/io5";
+import { signinAction } from "@/signinAction";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -26,17 +26,27 @@ const SignInPage = () => {
     e.preventDefault();
     setError("");
 
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
+    // const res = await signIn("credentials", {
+    //   redirect: false,
+    //   email,
+    //   password,
+    // });
 
-    if (res?.error) {
-      setError("Invalid email or password");
+    // if (res?.error) {
+    //   setError("Invalid email or password");
+    // } else {
+    //   router.push("/");
+    // }
+
+    const data = await signinAction(email, password)
+
+    if (!data?.success) {
+      setError(data?.message || "An unknown error occurred");
     } else {
+      alert("You are logged in");
       router.push("/");
     }
+
   };
 
   return (
@@ -86,6 +96,7 @@ const SignInPage = () => {
           <button className="p-2 bg-white text-black rounded-md hover:bg-gray-100 border-2 border-black transition-colors">
             <Link href={"/signup"}>Sign Up</Link>
           </button>
+          <Link href="/forgotpassword" className="text-right text-sm underline">Forgot Password?</Link>
         </div>
       </div>
     </>
