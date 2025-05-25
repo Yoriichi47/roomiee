@@ -1,10 +1,9 @@
 "use server"
 import bcrypt from "bcrypt";
 import { prisma } from "./prisma";
-import { signIn } from "./auth";
 
 const signinAction = async (email:string, password: string) => {
-   console.log("Email: ", email, "and Password: ", password)
+   
     const userPassword = await prisma.user.findFirst({
         where: {
             email: email,
@@ -14,22 +13,17 @@ const signinAction = async (email:string, password: string) => {
         },
     })
 
-    console.log("User Password: ", userPassword?.password)
+    if(!userPassword) {
+        return { success: false, message: "User not found" };
+    }
 
     const isMatched = await bcrypt.compare(password, userPassword?.password || "");
 
-    console.log("Is Matched: ", isMatched)
-
     if (!isMatched) {
-        return { success: false, message: "Invalid email or password" };
+        return { success: false, message: "Invalid password" };
     }
 
-    // await signIn("credentials",{
-    //     email: email,
-    //     password: userPassword?.password,
-    //     redirect: false,
-    // }
-    // )
+    return { success: true, message: "Password matches", dbPassword: userPassword?.password };
 }
 
 export {signinAction}
