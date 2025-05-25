@@ -17,27 +17,33 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials, req) => {
-        const validatedCredentials = schema.parse(credentials);
+        try {
+          const validatedCredentials = schema.parse(credentials);
 
-        console.log("Validated Credentials: ", validatedCredentials);
+          const user = await prisma.user.findUnique({
+            where: {
+              email: validatedCredentials.email,
+              password: validatedCredentials.password,
+            },
+          });
 
-        const user = await prisma.user.findFirst({
-          where: {
-            email: validatedCredentials.email,
-            // password: validatedCredentials.password,
-          },
-        });
+          if (!user) {
+            return null;
+          }
 
-        if (!user) {
-          throw new Error("Invalid credentials");
+          return user;
+          
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error("Error in authorize: ", error.message);
+          }
+          return null;
         }
-
-        return user;
       },
     }),
   ],
   pages: {
-    signIn: "/signin"
+    signIn: "/signin",
   },
   callbacks: {
     async jwt({ token, account }) {

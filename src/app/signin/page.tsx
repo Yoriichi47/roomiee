@@ -15,7 +15,6 @@ const SignInPage = () => {
   const {data: session, status} = useSession()
 
   useEffect(() => {
-
     if(status === "authenticated"){
       alert("You are logged in")
       router.push("/")
@@ -23,31 +22,22 @@ const SignInPage = () => {
   }, [status, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+      e.preventDefault();
+      setError("");
+  
+      const data = await signinAction(email, password)
+  
+      if (!data?.success) {
+        setError(data?.message || "An unknown error occurred");
+      } else {
+        await signIn("credentials", {
+          redirect: false,
+          email: email,
+          password: data?.dbPassword,
+        })
+      }
+    };
 
-    // const res = await signIn("credentials", {
-    //   redirect: false,
-    //   email,
-    //   password,
-    // });
-
-    // if (res?.error) {
-    //   setError("Invalid email or password");
-    // } else {
-    //   router.push("/");
-    // }
-
-    const data = await signinAction(email, password)
-
-    if (!data?.success) {
-      setError(data?.message || "An unknown error occurred");
-    } else {
-      alert("You are logged in");
-      router.push("/");
-    }
-
-  };
 
   return (
     <>
