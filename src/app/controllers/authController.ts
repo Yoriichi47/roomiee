@@ -135,6 +135,69 @@ export const updateUserPassword = async (req: NextRequest) => {
   }
 };
 
+export const forgotPassword = async (req: NextRequest) => {
+  const body = await req.json();
+
+  const userData = {
+    email: body.email,
+    password: body.password,
+  };
+
+  const user = await prisma.user.findFirst({
+    where: {
+      email: userData.email,
+    },
+  });
+
+  if(!user){
+    return NextResponse.json({
+      success: false,
+      message: "User not found",
+    });
+  }
+
+  const samePassword = await bcrypt.compare(
+    userData.password,
+    user?.password as string
+  );
+
+  if (samePassword === true) {
+    return NextResponse.json({
+      success: false,
+      message: "New password cannot be the same as the old password",
+    });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+    if (userData.password !== "") {
+      const updateUser = await prisma.user.update({
+        where: {
+          email: userData.email,
+        },
+        data: {
+          password: hashedPassword,
+        },
+      });
+
+      return NextResponse.json({
+        success: true,
+        Details: updateUser,
+        message: "Password updated successfully",
+      });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ success: false, message: error.message });
+    }
+  }
+  return NextResponse.json({
+    success: false,
+    message: "Password not updated",
+  });
+};
+
 export const updateUserPicture = async (req: NextRequest) => {
     const body = await req.json()
 

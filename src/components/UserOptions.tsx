@@ -1,13 +1,24 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import { FaRegUser, FaRegImages } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 
 const UserOptions = () => {
   const pathName = usePathname();
+
+  const {data: session, status} = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if(status === "unauthenticated"){
+      router.push("/signin")
+    }
+  }, [status, router])
+  
 
   const menuOptions = [
     {

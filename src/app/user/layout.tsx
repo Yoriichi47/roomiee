@@ -1,11 +1,27 @@
+"use client"
 import UserOptions from "@/components/UserOptions";
-import React from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import MoonLoader from "react-spinners/MoonLoader";
 
 interface props {
   children: React.ReactNode;
 }
 
-const userLayout = ({ children }: props) => {
+const userLayout =  ({ children }: props) => {
+
+  const { data: session, status } = useSession({required: true});
+  const router = useRouter()
+
+    if(status === "loading") {
+      return (
+      <div className=" flex justify-center items-center h-screen">
+      <MoonLoader size={50} />
+      </div>)
+    }
+
+
   return (
     <>
       <div className="flex justify-center my-2">

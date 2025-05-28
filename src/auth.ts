@@ -23,31 +23,24 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         try {
           const validatedCredentials = schema.parse(credentials);
 
-          const userPassword = await prisma.user.findFirst({
+          const user = await prisma.user.findFirst({
             where: {
               email: validatedCredentials.email,
             },
           })
 
-          if(!userPassword) {
+          if(!user) {
             throw new Error("User not found");
           }
 
           const isValidPassword = await bcrypt.compare(
             validatedCredentials.password,
-            userPassword?.password || ""
+            user?.password as string
           );
 
           if (!isValidPassword) {
             throw new Error("Invalid password");
           }
-
-          const user = await prisma.user.findUnique({
-            where: {
-              email: validatedCredentials.email,
-              password: userPassword?.password || "",
-            },
-          });
 
           if (!user) {
             throw new Error("User not found");
@@ -57,7 +50,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
         } catch (error) {
           if (error instanceof Error) {
-            console.error("Error in authorize: ", error.message);
+            return null; // Return null if there is an error, which will trigger an error in the sign-in process
           }
           return null;
         }
@@ -75,11 +68,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return token;
     },
   },
-  // session:{
-  //   strategy: "jwt",
-  //   maxAge: 30 * 24 * 60 * 60, // 30 days
-  //   updateAge: 24 * 60 * 60, // 24 hours
-  // },
   jwt: {
     encode: async function (params) {
       if (params.token?.credentials) {

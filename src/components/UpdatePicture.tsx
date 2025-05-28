@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import MoonLoader from "react-spinners/MoonLoader";
 
 const UpdatePicture = () => {
   const { data: session } = useSession();
@@ -10,13 +11,17 @@ const UpdatePicture = () => {
   const exisitingEmail = session?.user?.email;
 
   const [UserPicture, setUserPicture] = useState("");
+  const [IsLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const res = await fetch("/api/user/picture", {
-      method: "PUT",
-      headers: {
+    try {
+      setIsLoading(true)
+
+      const res = await fetch("/api/user/picture", {
+        method: "PUT",
+        headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
@@ -32,6 +37,13 @@ const UpdatePicture = () => {
     } else {
       alert("Failed to update picture");
     }
+      } catch (error) {
+        if(error instanceof Error){
+          alert("Some error occurred")
+        }
+      } finally {
+        setIsLoading(false)
+      }
   };
 
   return (
@@ -62,9 +74,11 @@ const UpdatePicture = () => {
             </div>
             <button
               className="p-2 bg-black text-white rounded-md hover:bg-gray-900 transition-colors"
-              type="submit"
-            >
+              type="submit" disabled={IsLoading}
+            >{IsLoading ? (<div className="flex justify-center mx-auto"><MoonLoader size={20} color="#ffffff"/> </div>) : 
+              <p>
               Upload
+              </p>}
             </button>
           </form>
         </div>

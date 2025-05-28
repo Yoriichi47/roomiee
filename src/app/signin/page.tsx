@@ -4,11 +4,16 @@ import { signIn, useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import MoonLoader from "react-spinners/MoonLoader";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [Show, setShow] = useState(false);
+  const [IsLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
 
   const { data: session, status } = useSession();
@@ -20,29 +25,42 @@ const SignInPage = () => {
     }
   }, [status, router]);
 
+  const showPassword = () => {
+    setShow(!Show);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    const data = await signIn("credentials", {
-      email: email,
-      password: password,
-      redirect: false,
-    });
+    try {
+      setIsLoading(true);
 
-    if (data?.error) {
-  const errorMessage =
-    typeof data.error === "string"
-      ? data.error
-      : (data.error as any)?.message || "Unexpected error";
+      const data = await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: false,
+      });
 
-  if (errorMessage === "CredentialsSignin") {
-    setError("Invalid email or password");
-  } else {
-    setError(errorMessage); // fallback if it's another string error
-  }
-}
-    
+      if (data?.error) {
+        const errorMessage =
+          typeof data.error === "string"
+            ? data.error
+            : (data.error as any)?.message || "Unexpected error";
+
+        if (errorMessage === "CredentialsSignin") {
+          setError("Invalid email or password");
+        } else {
+          setError(errorMessage);
+        }
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -67,20 +85,29 @@ const SignInPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
-              className="p-2 border-2 focus:shadow-lg w-full rounded-md"
-              required
-              type="password"
-              placeholder="Enter your password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
+            <div className="flex">
+              <input
+                className="p-2 border-2 border-r-0 focus:border-r-2 rounded-r-none focus:shadow-lg w-full rounded-l-md"
+                type={Show ? "text" : "password"}
+                placeholder="Enter your Password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+
+              <button
+                type="button"
+                className="p-2 border-2 focus:shadow-lg rounded-r-md focus:border-black hover:bg-gray-50 transition-all"
+                onClick={showPassword}
+              >
+                {Show ? <FaRegEyeSlash /> : <FaRegEye />}
+              </button>
+            </div>
+            <button disabled={IsLoading}
               className="p-2 bg-black text-white rounded-md hover:bg-gray-900 transition-colors"
               type="submit"
             >
-              Sign In
+              {IsLoading ? (<div className="flex justify-center mx-auto"><MoonLoader size={20} color="#ffffff"/> </div>) : <p>Sign In</p>}
             </button>
           </form>
 
@@ -89,10 +116,13 @@ const SignInPage = () => {
             <p className="text-sm font-semibold mx-2">OR</p>
             <div className="RightLine h-[2px] bg-gray-400 w-full"> </div>
           </div>
-          <button className="p-2 bg-white text-black rounded-md hover:bg-gray-100 border-2 border-black transition-colors">
+          <button  className="p-2 bg-white text-black rounded-md hover:bg-gray-100 border-2 border-black transition-colors">
             <Link href={"/signup"}>Sign Up</Link>
           </button>
-          <Link href="/forgotpassword" className="text-right text-sm underline">
+          <Link
+            href="/forgot_password"
+            className="text-right text-sm underline"
+          >
             Forgot Password?
           </Link>
         </div>
