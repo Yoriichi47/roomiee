@@ -48,7 +48,7 @@ const HomePage = async ({city, state, country}: {city?: string, state?: string, 
                   asChild
                   className="w-full bg-zinc-100 text-zinc-900 font-semibold text-lg"
                 >
-                  <Link href={`/rooms/${room.roomId}`}>See Details</Link>
+                  <Link href={`/rooms?roomId=${room.roomId}`}>See Details</Link>
                 </Button>
               </CardFooter>
             </Card>

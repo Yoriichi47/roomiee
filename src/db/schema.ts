@@ -5,6 +5,7 @@ import {
   boolean,
   integer,
   doublePrecision,
+  timestamp,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
@@ -28,5 +29,20 @@ export const rooms = pgTable("rooms", {
     .default(false)
     .notNull(),
   images: text("images").array().notNull(), 
+});
+
+export const bookings = pgTable("bookings", {
+  bookingId: varchar("bookingId", { length: 36 })
+    .primaryKey()
+    .$defaultFn(() => sql`gen_random_uuid()`),
+  roomId: varchar("roomId").references(() => rooms.roomId).notNull(),
+  userId: varchar("userId", { length: 36 }).notNull(),
+  startDate: timestamp("startDate").notNull(),
+  endDate: timestamp("endDate").notNull(),
+  amountPaid: doublePrecision("amountPaid").notNull(),
+  daysOfStay: integer("daysOfStay").notNull(),
+  paymentInfo: text("paymentInfo").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  paidAt: timestamp("paidAt").defaultNow().notNull(),
 });
 

@@ -13,6 +13,7 @@ import { Cross, CrossIcon, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useRouter } from 'next/navigation'
 import Link from "next/link";
+import Image from "next/image";
 import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
 
 const Header = () => {
@@ -39,7 +40,15 @@ const Header = () => {
 
   return (
     <nav className="flex justify-between bg-zinc-700 p-4 items-center">
-      <div className="logo text-4xl font-bold"><Link href="/">Roomiee</Link></div>
+      <div className="logo text-4xl font-bold"><Link href="/">
+      <Image 
+      src="/Logo_DarkMode.png" 
+      height={200}
+      width={200}
+      alt="Roomie Logo"
+      className="h-10 w-auto"
+      />
+      </Link></div>
       <div className="right flex items-center gap-4">
            <div
           className={`flex gap-2 items-center transition-all duration-300 ease-in-out transform ${
