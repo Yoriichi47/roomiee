@@ -97,10 +97,10 @@ const page = async ({
                       <TableCell>{data?.booking.daysOfStay} Days</TableCell>
                     </TableRow>
                   </TableBody>
-                  <TableFooter className="flex justify-items-center pt-2 w-full">
-                    <Button className="bg-zinc-600 hover:bg-zinc-800 transition-all"><Link href={`/bookings/invoice?booking=${data?.booking.bookingId}`}>View Invoice</Link></Button>
-                  </TableFooter>
+                  
+                  
                 </Table>
+                    <Button className="bg-zinc-600 hover:bg-zinc-800 transition-all"><Link href={`/bookings/invoice?booking=${data?.booking.bookingId}`}>View Invoice</Link></Button>
               </CardContent>
             </Card>
           </CardContent>

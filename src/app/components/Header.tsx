@@ -96,11 +96,11 @@ const Header = () => {
         <DropdownMenuItem className="hover:bg-zinc-600"><Link href="/dashboard">Dashboard</Link></DropdownMenuItem>
         <DropdownMenuItem className="hover:bg-zinc-600"><Link href="/profile">Profile</Link></DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:bg-zinc-600"><SignOutButton redirectUrl="/"><Button className="text-center" variant="destructive">Sign Out</Button></SignOutButton></DropdownMenuItem>
+        <DropdownMenuItem><SignOutButton redirectUrl="/"><Button className="text-center mx-auto bg-red-600 hover:bg-red-700 w-full">Sign Out</Button></SignOutButton></DropdownMenuItem>
         </SignedIn>
         <SignedOut>
-        <DropdownMenuItem className="hover:bg-zinc-600"><Link href="/sign-in">Sign in</Link></DropdownMenuItem>
-        </SignedOut>
+        <DropdownMenuItem className="hover:bg-zinc-600"><Link href="/sign-in"><p className="bg-blue-600 hover:bg-blue-700"> Sign in </p></Link></DropdownMenuItem>
+        </SignedOut> 
       </DropdownMenuContent>
     </DropdownMenu>
       </div>

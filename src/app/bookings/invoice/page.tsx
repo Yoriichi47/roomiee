@@ -10,6 +10,9 @@ import {
 import { format } from "date-fns";
 import React from "react";
 import Image from "next/image";
+import html2canvas from "html2canvas";
+import jsPdf from "jspdf";
+import { InvoiceDownloadButton } from "@/app/components/InvoiceDownloadButton";
 
 const page = async ({
   searchParams,
@@ -19,11 +22,15 @@ const page = async ({
   const booking = (await searchParams).booking;
 
   const data = await getRoomDetailsForInvoice(booking);
+
   return (
     <>
       <Header />
-      <div className="flex justify-center items-center">
-        <div className="border-2 border-zinc-800 bg-white text-black w-3/5 pt-2 p-6 my-10">
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex justify-end w-3/5 mx-auto">
+        <InvoiceDownloadButton bookingId={booking} />
+        </div>
+        <div id="invoice_element" className="bg-white text-black w-3/5 pt-2 p-6 my-10">
           <header>
             <Image
             src="/logo_LightMode.png"
