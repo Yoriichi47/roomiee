@@ -13,7 +13,7 @@ export const rooms = pgTable("rooms", {
   roomId: varchar("roomId", { length: 36 })
     .primaryKey()
     .$defaultFn(() => sql`gen_random_uuid()`), 
-  name: text("name"),
+  name: text("name").notNull(),
   description: text("description").notNull(),
   price: doublePrecision("price").default(0).notNull(),
   Street: text("Street").notNull(),

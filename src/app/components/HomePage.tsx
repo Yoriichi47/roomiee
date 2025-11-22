@@ -1,4 +1,4 @@
-import { getAllRooms } from "@/app/data/getAllRooms";
+import { getAllRooms } from "@/app/data/RoomDataFunctions";
 import React from "react";
 import Image from "next/image";
 import {
@@ -11,21 +11,11 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { getUserRole, isAdmin } from "@/lib/auth-utils";
-import { currentUser } from "@clerk/nextjs/server";
 
 const HomePage = async ({city, state, country}: {city?: string, state?: string, country?: string}) => {
 
   const rooms = await getAllRooms({city, state, country});
 
-  const role = await isAdmin()
-  console.log("Role in HomePage:", role);
-
-  const UserRole = await currentUser()
-  console.log("User Role in HomePage:", UserRole?.publicMetadata?.role);
-
-  const UserRoleUsingFunction = await getUserRole()
-  console.log("User Role using getUserRole function in HomePage:", UserRoleUsingFunction);
 
   return (
     <div className="min-h-screen">

@@ -1,0 +1,215 @@
+{
+  "id": "9fb5b2da-454a-4b98-9d6b-e3c3c9bb07aa",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.bookings": {
+      "name": "bookings",
+      "schema": "",
+      "columns": {
+        "bookingId": {
+          "name": "bookingId",
+          "type": "varchar(36)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "roomId": {
+          "name": "roomId",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(36)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "startDate": {
+          "name": "startDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "endDate": {
+          "name": "endDate",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amountPaid": {
+          "name": "amountPaid",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "daysOfStay": {
+          "name": "daysOfStay",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "paymentInfo": {
+          "name": "paymentInfo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "paidAt": {
+          "name": "paidAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "bookings_roomId_rooms_roomId_fk": {
+          "name": "bookings_roomId_rooms_roomId_fk",
+          "tableFrom": "bookings",
+          "tableTo": "rooms",
+          "columnsFrom": [
+            "roomId"
+          ],
+          "columnsTo": [
+            "roomId"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.rooms": {
+      "name": "rooms",
+      "schema": "",
+      "columns": {
+        "roomId": {
+          "name": "roomId",
+          "type": "varchar(36)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price": {
+          "name": "price",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "Street": {
+          "name": "Street",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "City": {
+          "name": "City",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "State": {
+          "name": "State",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Country": {
+          "name": "Country",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ZipCode": {
+          "name": "ZipCode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "guestCapacity": {
+          "name": "guestCapacity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Beds": {
+          "name": "Beds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isAirConditioned": {
+          "name": "isAirConditioned",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "isWifiAvailable": {
+          "name": "isWifiAvailable",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "isBreakfastAvailable": {
+          "name": "isBreakfastAvailable",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "images": {
+          "name": "images",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

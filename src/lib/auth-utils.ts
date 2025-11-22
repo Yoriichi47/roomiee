@@ -16,7 +16,6 @@ export async function isAdmin() {
 
 export async function getUserRole(){
     const user = await currentUser()
-
     const role = user?.publicMetadata?.role as string || "userrole"
 
     return role
