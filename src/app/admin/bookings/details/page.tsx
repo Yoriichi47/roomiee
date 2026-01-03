@@ -1,4 +1,3 @@
-import Header from "@/app/components/Header";
 import { getUserBookedRoomDetails } from "@/app/data/getUserBookedRooms";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { format } from "date-fns";
@@ -6,10 +5,7 @@ import React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
-  TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 "use client";
 import CloudinaryImageComponent from "@/app/components/CloudinaryImageComponent";
-import { newRoom, updateRoom } from "@/app/data/RoomDataFunctions";
+import { updateRoom } from "@/app/data/RoomDataFunctions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {

@@ -28,7 +28,7 @@ const getBookedDates = async (roomId: string) => {
       success: true,
       bookedDates: disabledDates
     };
-  } catch (error) {
+  } catch {
     return {
       success: false,
       bookedDates: [],

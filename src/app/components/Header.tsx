@@ -15,7 +15,6 @@ import { useRouter } from 'next/navigation'
 import Link from "next/link";
 import Image from "next/image";
 import { SignedIn, SignedOut, SignOutButton, useAuth, useUser } from "@clerk/nextjs";
-import { elevateToAdmin, isAdmin } from "@/lib/auth-utils";
 
 const Header = () => {
 
@@ -23,9 +22,7 @@ const Header = () => {
   const [city, setCity] = React.useState(""); 
   const [state, setState] = React.useState("");
   const [country, setCountry] = React.useState("");
-  
-  const { userId } = useAuth()
-  const { user, isLoaded } = useUser();
+  const { user } = useUser();
 
     const userRole = user?.publicMetadata?.role as string | undefined;
   const isAdmin = userRole === "adminrole";

@@ -2,7 +2,6 @@ import { db } from "@/db";
 import { bookings, rooms } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
-import { start } from "repl";
 import "server-only";
 
 export async function getUserBookedRooms() {

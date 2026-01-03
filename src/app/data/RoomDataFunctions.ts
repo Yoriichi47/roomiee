@@ -59,7 +59,6 @@ export async function updateRoom(
   roomId: string, data: newRoomData
   
 ) {
-  const adminCheck = await isAdmin();
 
   const [updatedRoom] = await db
     .update(rooms)
@@ -89,7 +88,6 @@ export async function updateRoom(
 }
 
 export async function newRoom(data: newRoomData) {
-  const { sessionClaims } = await auth();
   const user = await currentUser();
   const adminCheck = user?.publicMetadata?.role === "adminrole";
   if (adminCheck !== true) {

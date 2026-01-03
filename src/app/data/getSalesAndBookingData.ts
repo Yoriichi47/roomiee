@@ -1,8 +1,6 @@
 import { db } from "@/db";
 import { bookings } from "@/db/schema";
-import { isAdmin } from "@/lib/auth-utils";
-import { auth } from "@clerk/nextjs/server";
-import { count, eq, sql, sum } from "drizzle-orm";
+import { count, sql, sum } from "drizzle-orm";
 import "server-only";
 
 type DashboardData = {

@@ -10,7 +10,7 @@ const upload_file = (
   file: string,
   folder: string
 ): Promise<{ public_id: string; url: string }> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     cloudinary.v2.uploader.upload(
       file,
       {

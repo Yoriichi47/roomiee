@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardHeader } from '@/components/ui/card';
 import React from 'react'
 import SaleAndBookingCard from '../../components/SaleAndBookingCard';
 import { DashboardChart } from '../../components/DashboardChart';

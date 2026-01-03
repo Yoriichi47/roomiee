@@ -6,10 +6,7 @@ import React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
-  TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";

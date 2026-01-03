@@ -33,8 +33,6 @@ export function GuestInfo({
   maxGuests,
   totalPrice,
   roomId,
-  roomName,
-  roomDescription,
   onBookingDataChange,
 }: {
   maxGuests?: number;

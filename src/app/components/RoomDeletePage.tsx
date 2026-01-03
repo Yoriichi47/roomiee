@@ -90,8 +90,9 @@ export default function RoomDeletePage({
       } else {
         alert(result.message || "Failed to deleting room");
       }
-    } catch (error) {
-      console.error("Error deleting room:", error);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      console.error("Error deleting room:", errorMessage);
       alert("Something went wrong. Please try again.");
     }
   };
@@ -110,7 +111,6 @@ export default function RoomDeletePage({
                   disabled={form.formState.isSubmitting}
                   className="grid-cols-2 gap-8 grid p-4"
                 >
-                  {/* All your FormFields remain the same */}
                   <FormField
                     disabled
                     control={form.control}
@@ -183,19 +183,18 @@ export default function RoomDeletePage({
                       <FormItem className="col-span-2">
                         <FormLabel>Room Images</FormLabel>
                         <FormControl>
-                            <div className="flex flex-wrap gap-4">
-
-                          {roomData.images.map((image, index) => (
+                          <div className="flex flex-wrap gap-4">
+                            {roomData.images.map((image, index) => (
                               <Image
-                              key={index}
-                              width={150}
-                              height={150}
-                              className="rounded-xl"
-                              alt={`Room Image ${index + 1}`}
-                              src={image}
-                            />
-                        ))}
-                        </div>
+                                key={index}
+                                width={150}
+                                height={150}
+                                className="rounded-xl"
+                                alt={`Room Image ${index + 1}`}
+                                src={image}
+                              />
+                            ))}
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>

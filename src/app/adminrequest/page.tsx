@@ -30,7 +30,7 @@ const page = () => {
                   You will need to provide your email and full name for
                   verification purposes.
                 </p>
-                <p>You'll hear back within 48 hours.</p>
+                <p>You&apos;ll hear back within 48 hours.</p>
               </CardContent>
             </Card>
             <Link href={"/"}>

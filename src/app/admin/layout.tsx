@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../components/Header";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { redirect, usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 
@@ -41,7 +41,7 @@ export default function AdminLayout({
               <h1 className="text-2xl font-bold text-red-500">Access Denied</h1>
             </CardHeader>
             <CardContent className="text-center">
-              <p className="mb-4">You don't have admin permissions.</p>
+              <p className="mb-4">You don&apos;t have admin permissions.</p>
               <Button onClick={() => redirect('/')} className="bg-zinc-700">
                 Go Back Home
               </Button>

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import React from "react";
 import Link from "next/link";
-import { EyeIcon, ListIcon, TrashIcon } from "lucide-react";
+import { EyeIcon, ListIcon } from "lucide-react";
 import { format } from "date-fns";
 import DeleteBookingButtonComponent from "./DeleteBookingButtonComponent";
 

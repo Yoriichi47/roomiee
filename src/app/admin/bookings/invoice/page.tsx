@@ -1,4 +1,3 @@
-import Header from "@/app/components/Header";
 import { getRoomDetailsForInvoice } from "@/app/data/getUserBookedRooms";
 import {
   Table,
@@ -10,8 +9,6 @@ import {
 import { format } from "date-fns";
 import React from "react";
 import Image from "next/image";
-import html2canvas from "html2canvas";
-import jsPdf from "jspdf";
 import { InvoiceDownloadButton } from "@/app/components/InvoiceDownloadButton";
 
 const page = async ({

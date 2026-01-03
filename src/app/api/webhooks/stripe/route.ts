@@ -28,9 +28,10 @@ export async function POST(req: Request) {
 
     try {
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-    } catch (err: any) {
-      console.error("❌ Webhook signature verification failed:", err.message);
-      return NextResponse.json({ error: err.message }, { status: 400 });
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
+      console.error("❌ Webhook signature verification failed:", errorMessage);
+      return NextResponse.json({ error: errorMessage }, { status: 400 });
     }
 
     console.log("✅ Webhook received:", event.type);
@@ -74,8 +75,9 @@ export async function POST(req: Request) {
           .returning();
 
         console.log("✅ Booking saved successfully:", newBooking.bookingId);
-      } catch (error) {
-        console.error("❌ Error saving booking:", error);
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
+        console.error("❌ Error saving booking:", errorMessage);
         return NextResponse.json(
           { error: "Failed to save booking" },
           { status: 500 }
@@ -84,8 +86,9 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ received: true });
-  } catch (error) {
-    console.error("❌ Webhook error:", error);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    console.error("❌ Webhook error:", errorMessage);
     return NextResponse.json(
       { error: "Webhook handler failed" },
       { status: 500 }

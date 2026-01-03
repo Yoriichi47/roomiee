@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import ImageCarousel from "@/app/components/ImageCarousel";
 import { Button } from "@/components/ui/button";
 import Header from "../components/Header";
