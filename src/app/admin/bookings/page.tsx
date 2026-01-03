@@ -9,7 +9,6 @@ import DeleteBookingButtonComponent from "./DeleteBookingButtonComponent";
 
 const page = async () => {
   const data = await getAdminBookings();
-  console.log("Admin Bookings Data:", data);
 
   if(!data || data?.bookings?.length === 0){
     return(
