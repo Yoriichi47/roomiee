@@ -4,7 +4,16 @@ import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 
 export async function getRoomsByAdmin() {
-    const { userId } = await auth();
+  const { userId } = await auth();
+
+  if (!userId) {
+    return {
+      success: false,
+      message: "User not authenticated",
+      data: [],
+    };
+  }
+
   try {
     const adminRooms = await db
       .select()
