@@ -9,12 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { Cross, CrossIcon, Search } from "lucide-react";
+import { Cross, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useRouter } from 'next/navigation'
 import Link from "next/link";
 import Image from "next/image";
-import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignOutButton, useAuth, useUser } from "@clerk/nextjs";
+import { elevateToAdmin, isAdmin } from "@/lib/auth-utils";
 
 const Header = () => {
 
@@ -22,6 +23,12 @@ const Header = () => {
   const [city, setCity] = React.useState(""); 
   const [state, setState] = React.useState("");
   const [country, setCountry] = React.useState("");
+  
+  const { userId } = useAuth()
+  const { user, isLoaded } = useUser();
+
+    const userRole = user?.publicMetadata?.role as string | undefined;
+  const isAdmin = userRole === "adminrole";
 
   const router = useRouter()
 
@@ -83,6 +90,7 @@ const Header = () => {
           </Button>
         </div>
         <Button onClick={() => {setSearchBox(!searchBox)}} className="bg-zinc-800 hover:bg-zinc-900">{searchBox ? <span className="rotate-45"><Cross strokeWidth={0.7} /></span> : <Search />}</Button>
+        
 
         <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -92,14 +100,17 @@ const Header = () => {
         <DropdownMenuLabel className="bg-zinc-500 text-zinc-200 ">My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <SignedIn>
+        {isAdmin && (
+          <DropdownMenuItem className="hover:bg-zinc-600"><Link href="/admin/dashboard">Dashboard</Link></DropdownMenuItem>
+        )}
         <DropdownMenuItem className="hover:bg-zinc-600"><Link href="/bookings">Bookings</Link></DropdownMenuItem>
-        <DropdownMenuItem className="hover:bg-zinc-600"><Link href="/dashboard">Dashboard</Link></DropdownMenuItem>
         <DropdownMenuItem className="hover:bg-zinc-600"><Link href="/profile">Profile</Link></DropdownMenuItem>
+        {!isAdmin && (<DropdownMenuItem className="hover:bg-zinc-600"><Link href="/adminrequest">Become Admin</Link></DropdownMenuItem>)}
         <DropdownMenuSeparator />
         <DropdownMenuItem><SignOutButton redirectUrl="/"><Button className="text-center mx-auto bg-red-600 hover:bg-red-700 w-full">Sign Out</Button></SignOutButton></DropdownMenuItem>
         </SignedIn>
         <SignedOut>
-        <DropdownMenuItem className="hover:bg-zinc-600"><Link href="/sign-in"><p className="bg-blue-600 hover:bg-blue-700"> Sign in </p></Link></DropdownMenuItem>
+        <DropdownMenuItem><Link className="w-full" href="/sign-in"><Button className="text-center mx-auto bg-green-600 hover:bg-green-700 w-full"> Sign in </Button></Link></DropdownMenuItem>
         </SignedOut> 
       </DropdownMenuContent>
     </DropdownMenu>

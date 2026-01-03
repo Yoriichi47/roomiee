@@ -12,6 +12,7 @@ import {
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import ImageCarousel from "@/app/components/ImageCarousel";
 import { Button } from "@/components/ui/button";
+import Header from "../components/Header";
 
 const page = async ({ searchParams }: { searchParams: Promise<{ roomId: string }> }) => {
   const roomId = (await searchParams).roomId;
@@ -20,6 +21,7 @@ const page = async ({ searchParams }: { searchParams: Promise<{ roomId: string }
 
   return (
     <>
+        <Header />
       <div className="min-h-screen p-4">
         <div>
           <Breadcrumb>

@@ -13,14 +13,17 @@ const page = async () => {
 
   if (!data?.bookings || data.bookings.length === 0) {
     return (
-      <div className="flex justify-center items-start min-h-screen">
-        <Card className="mt-10 w-full max-w-4xl bg-zinc-800 border-zinc-800 text-zinc-100">
-          <CardHeader>All Bookings</CardHeader>
-          <CardContent>
-            <p>You have no booked rooms.</p>
-          </CardContent>
-        </Card>
-      </div>
+      <>
+        <Header />
+        <div className="flex justify-center items-start min-h-screen">
+          <Card className="mt-10 w-full max-w-4xl bg-zinc-800 border-zinc-800 text-zinc-100">
+            <CardHeader className="text-center text-4xl underline underline-offset-2 font-bold">All Bookings</CardHeader>
+            <CardContent>
+              <p className="text-center">You have no booked rooms.</p>
+            </CardContent>
+          </Card>
+        </div>
+      </>
     );
   }
 
@@ -75,7 +78,13 @@ const page = async () => {
                       </div>
                     </div>
                     <div>
-                      <Button className="bg-zinc-600 hover:bg-zinc-800 transition-all" ><Link href={`/bookings/details?roomId=${booking.roomId}`}>View Details</Link></Button>
+                      <Button className="bg-zinc-600 hover:bg-zinc-800 transition-all">
+                        <Link
+                          href={`/bookings/details?roomId=${booking.roomId}`}
+                        >
+                          View Details
+                        </Link>
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

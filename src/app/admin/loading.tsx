@@ -3,7 +3,7 @@ import { Spinner } from "@/components/ui/spinner"
 
 const loading = () => {
   return (
-    <div className="flex min-w-full justify-center items-center min-h-screen "><Spinner className='size-16'/></div>
+    <div className="flex justify-center items-center min-h-screen "><Spinner className='size-16' /></div>
   )
 }
 

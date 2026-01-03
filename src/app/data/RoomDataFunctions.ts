@@ -1,8 +1,26 @@
+"use server";
 import { db } from "@/db";
 import { rooms } from "@/db/schema";
 import { isAdmin } from "@/lib/auth-utils";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
-import "server-only";
+
+type newRoomData = {
+  name: string;
+  description: string;
+  price: number;
+  images: string[];
+  Street: string;
+  State: string;
+  City: string;
+  Country: string;
+  ZipCode: string;
+  guestCapacity: number;
+  Beds: number;
+  isAirConditioned: boolean;
+  isWifiAvailable: boolean;
+  isBreakfastAvailable: boolean;
+};
 
 export async function getAllRooms({
   city,
@@ -27,117 +45,76 @@ export async function getAllRooms({
 }
 
 export async function deleteRoomById(roomId: string) {
-  const adminCheck = await isAdmin();
-  if (!adminCheck) {
-    return { success: false, error: "Unauthorized - Admin access required" };
-  }
 
   const deleteRoom = await db.delete(rooms).where(eq(rooms.roomId, roomId));
 
-  return deleteRoom;
+  if(!deleteRoom) {
+    return { success: false, message: "An error occurred while deleting the room" };
+  }
+
+  return { success: true, message: "Room deleted successfully" };
 }
 
 export async function updateRoom(
-  roomId: string,
-  {
-    city,
-    state,
-    country,
-    zipcode,
-    images,
-    description,
-    price,
-  }: {
-    city?: string;
-    state?: string;
-    country?: string;
-    zipcode?: string;
-    images?: string[];
-    description?: string;
-    price?: number;
-  }
+  roomId: string, data: newRoomData
+  
 ) {
   const adminCheck = await isAdmin();
-  if (!adminCheck) {
-    return { success: false, error: "Unauthorized - Admin access required" };
-  }
 
   const [updatedRoom] = await db
     .update(rooms)
     .set({
-      ...(city && { City: city }),
-      ...(state && { State: state }),
-      ...(country && { Country: country }),
-      ...(zipcode && { ZipCode: zipcode }),
-      ...(images && { images }),
-      ...(description && { description }),
-      ...(price && { price }),
+      ...(data.name && { name: data.name }),
+      ...(data.Beds && { Beds: data.Beds }),
+      ...(data.Street && { Street: data.Street }),
+      ...(data.guestCapacity && { guestCapacity: data.guestCapacity }),
+      ...(data.isAirConditioned && { isAirConditioned: data.isAirConditioned }),
+      ...(data.isWifiAvailable && { isWifiAvailable: data.isWifiAvailable }),
+      ...(data.isBreakfastAvailable && { isBreakfastAvailable: data.isBreakfastAvailable }),
+      ...(data.State && { State: data.State }),
+      ...(data.Country && { Country: data.Country }),
+      ...(data.ZipCode && { ZipCode: data.ZipCode }),
+      ...(data.images && { images: data.images }),
+      ...(data.description && { description: data.description }),
+      ...(data.price && { price: data.price }),
     })
     .where(eq(rooms.roomId, roomId))
     .returning();
 
   if (!updatedRoom) {
-    return { success: false, error: "Room not found" };
+    return { success: false, messagea: "Room not found" };
   }
 
-  return { success: true, room: updatedRoom };
+  return { success: true, room: updatedRoom, message: "Room updated successfully" };
 }
 
-export async function newRoom({
-  roomId,
-  city,
-  state,
-  country,
-  zipcode,
-  images,
-  description,
-  price,
-  name,
-  guestCapacity,
-  beds,
-  isAirConditioned,
-  isWifiAvailable,
-  isBreakfastAvailable,
-  street,
-}: {
-  roomId: string;
-  city: string;
-  state: string;
-  country: string;
-  zipcode: string;
-  images: string[];
-  description: string;
-  price: number;
-  name: string;
-  guestCapacity: number;
-  beds: number;
-  isAirConditioned: boolean;
-  isWifiAvailable: boolean;
-  isBreakfastAvailable: boolean;
-  street: string;
-}) {
-  const adminCheck = await isAdmin();
-  if (!adminCheck) {
-    return { success: false, error: "Unauthorized - Admin access required" };
+export async function newRoom(data: newRoomData) {
+  const { sessionClaims } = await auth();
+  const user = await currentUser();
+  const adminCheck = user?.publicMetadata?.role === "adminrole";
+  if (adminCheck !== true) {
+    return { success: false, message: "Unauthorized - Admin access required" };
   }
 
-  const createRoom = await db.insert(rooms).values({
-    roomId,
-    Street: street,
-    City: city,
-    State: state,
-    Country: country,
-    ZipCode: zipcode,
-    images,
-    description,
-    price,
-    name,
-    guestCapacity,
-    Beds: beds,
-    isAirConditioned,
-    isWifiAvailable,
-    isBreakfastAvailable,
-  })
+  const { userId } = await auth();
 
-  return {success: true, message: "Room created successfully"};
+  await db.insert(rooms).values({
+    Street: data.Street,
+    City: data.City,
+    State: data.State,
+    Country: data.Country,
+    ZipCode: data.ZipCode,
+    images: data.images,
+    description: data.description,
+    price: data.price,
+    name: data.name,
+    guestCapacity: data.guestCapacity,
+    Beds: data.Beds,
+    isAirConditioned: data.isAirConditioned,
+    isWifiAvailable: data.isWifiAvailable,
+    isBreakfastAvailable: data.isBreakfastAvailable,
+    createdBy: userId!,
+  });
+
+  return { success: true, message: "Room created successfully" };
 }

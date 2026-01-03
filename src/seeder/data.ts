@@ -1,4 +1,4 @@
-export const rooms = [
+export const roomSeeder = [
   {
     name: "Charming Studio < 10 Miles to Wells' Beaches!",
     price: 168,
@@ -19,6 +19,7 @@ export const rooms = [
 
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693135931/bookit/demo/ao7enhxobr0z1qyxgyki.jpg",
     ],
+    createdBy: "user_34G3H2tJ0GkJhyF5x4nYAhXMZL0"
   },
   {
     name: "Picturesque 2-Story Farmhouse w/Private Hot Tub",
@@ -39,6 +40,7 @@ export const rooms = [
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136060/bookit/demo/gbabqnb7nzvc7gmmpcvg.jpg",
       "http://res.cloudinary.com/udemy-courses/image/upload/v1694680598/bookit/demo/tvheutup1idr5wi0p5bq.jpg",
     ],
+    createdBy: "user_34G3H2tJ0GkJhyF5x4nYAhXMZL0"
   },
   {
     name: "Downtown Portsmouth Private Getaway! Hot Tub",
@@ -59,6 +61,7 @@ export const rooms = [
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136187/bookit/demo/nhhthdrrvaundinfnyxd.jpg",
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136187/bookit/demo/qsmprvvkshpwynqinz8i.jpg",
     ],
+    createdBy: "user_34G3H2tJ0GkJhyF5x4nYAhXMZL0"
   },
   {
     name: "Spacious Suite in a quiet Boston neighborhood.",
@@ -80,6 +83,7 @@ export const rooms = [
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136394/bookit/demo/m7hgvpqj6kbqjsma0gfy.jpg",
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136394/bookit/demo/inpn3k94tvsmdaun0dsj.jpg",
     ],
+    createdBy: "user_34G3H2tJ0GkJhyF5x4nYAhXMZL0"
   },
   {
     name: "Shangri-La Hotel, Washington",
@@ -100,6 +104,7 @@ export const rooms = [
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136765/bookit/demo/ir1705u1vtfgzvqqdfh2.jpg",
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136765/bookit/demo/o3ieyr8gltwhwccgqzia.jpg",
     ],
+    createdBy: "user_34G3H2tJ0GkJhyF5x4nYAhXMZL0"
   },
   {
     name: "Hotel Chimayo de Santa Fe Rooms",
@@ -119,6 +124,7 @@ export const rooms = [
     images: [
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136789/bookit/demo/hmvqt42lzdjc197ynrtk.jpg",
     ],
+    createdBy: "user_34G3H2tJ0GkJhyF5x4nYAhXMZL0"
   },
   {
     name: "Hotel Garni Ischgl 4 star room comfort",
@@ -138,6 +144,7 @@ export const rooms = [
     images: [
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136804/bookit/demo/aenyd4econmkcvyiyjkc.jpg",
     ],
+    createdBy: "user_34G3H2tJ0GkJhyF5x4nYAhXMZL0"
   },
   {
     name: "The Spa at Base Camp at Kerry Hotel",
@@ -158,5 +165,6 @@ export const rooms = [
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136823/bookit/demo/bwrnbs3sqzd6bbuyau47.jpg",
       "http://res.cloudinary.com/udemy-courses/image/upload/v1693136822/bookit/demo/hhjpp67jiqyacv8gvmso.jpg",
     ],
+    createdBy: "user_34G3H2tJ0GkJhyF5x4nYAhXMZL0"
   },
 ];

@@ -1,20 +1,42 @@
-import { prisma } from "../prisma";
-import { rooms } from "./data";
+import 'dotenv/config';
+import { db } from "../db/index";
+import { rooms } from "../db/schema";
+import { roomSeeder } from "./data";
 
-const seedRooms = async () => {
-    try {
-        await prisma.room.deleteMany();
-        console.log("Rooms deleted");
+async function seedRooms() {
+  try {
+    console.log('🌱 Seeding database...');
+    console.log('📍 DATABASE_URL:', process.env.DATABASE_URL ? 'Found' : 'Missing');
 
-        await prisma.room.createMany({ data: rooms })
-        console.log("Rooms created");
+    const roomsData = roomSeeder.map((room) => ({
+      name: room.name,
+      price: room.price,
+      description: room.description,
+      Street: room.Street,
+      City: room.City,
+      State: room.State,
+      Country: room.Country,
+      ZipCode: room.ZipCode,
+      guestCapacity: room.guestCapacity,
+      Beds: room.Beds,
+      isWifiAvailable: room.isWifiAvailable,
+      isBreakfastAvailable: room.isBreakfastAvailable,
+      isAirConditioned: room.isAirConditioned,
+      images: room.images,
+      createdBy: room.createdBy,
+    }));
 
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error("error:", error.stack);
-        }     
-        process.exit();
-    }
+    console.log(`📝 Prepared ${roomsData.length} rooms for seeding...`);
+
+    // Insert rooms
+    const result = await db.insert(rooms).values(roomsData);
+
+    console.log(`✅ Successfully seeded ${roomsData.length} rooms`);
+    process.exit(0);
+  } catch (error) {
+    console.error('❌ Error seeding database:', error);
+    process.exit(1);
+  }
 }
 
-seedRooms()
+seedRooms();

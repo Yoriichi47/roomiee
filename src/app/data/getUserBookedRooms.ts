@@ -130,3 +130,11 @@ export async function getRoomDetailsForInvoice(bookingId: string) {
     return { success: false, booking: null, user: null, error: "Failed to fetch invoice details" };
   }
 }
+
+export async function getAdminBookings() {
+  const data = await db.select().from(bookings);
+  if (!data) {
+    return {success: false, message: "No bookings found" };
+  }
+  return { success: true, bookings: data };
+}

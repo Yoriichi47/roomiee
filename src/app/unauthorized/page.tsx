@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ShieldAlert } from "lucide-react";
 
-export default function UnauthorizedPage() {
+export default function page() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-zinc-100">
       <ShieldAlert className="w-20 h-20 text-red-500 mb-4" />
