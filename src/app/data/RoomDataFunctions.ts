@@ -1,7 +1,6 @@
 "use server";
 import { db } from "@/db";
 import { rooms } from "@/db/schema";
-import { isAdmin } from "@/lib/auth-utils";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 

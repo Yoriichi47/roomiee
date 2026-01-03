@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from 'next/navigation'
 import Link from "next/link";
 import Image from "next/image";
-import { SignedIn, SignedOut, SignOutButton, useAuth, useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignOutButton, useUser } from "@clerk/nextjs";
 
 const Header = () => {
 

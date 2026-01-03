@@ -1,4 +1,4 @@
-import cloudinary from "cloudinary";
+import cloudinary, { UploadApiResponse } from "cloudinary";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -10,14 +10,18 @@ const upload_file = (
   file: string,
   folder: string
 ): Promise<{ public_id: string; url: string }> => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     cloudinary.v2.uploader.upload(
       file,
       {
         resource_type: "auto",
         folder: folder,
       },
-      (error, result: any) => {
+      (error: Error | undefined, result: UploadApiResponse | undefined) => {
+        if (error || !result) {
+          reject(error || new Error("Upload failed"));
+          return;
+        }
         resolve({
           public_id: result.public_id,
           url: result.url,
@@ -28,11 +32,11 @@ const upload_file = (
 };
 
 const delete_file = async (file: string): Promise<boolean> => {
-    const res = await cloudinary.v2.uploader.destroy(file)
-    if(res.result === "ok") {
-        return true
-    }
-    return false
+  const res = await cloudinary.v2.uploader.destroy(file);
+  if (res.result === "ok") {
+    return true;
+  }
+  return false;
 };
 
 export { upload_file, delete_file, cloudinary };

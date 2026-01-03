@@ -176,31 +176,30 @@ export default function RoomDeletePage({
                   />
 
                   <FormField
-                    disabled
-                    control={form.control}
-                    name="images"
-                    render={({ field }) => (
-                      <FormItem className="col-span-2">
-                        <FormLabel>Room Images</FormLabel>
-                        <FormControl>
-                          <div className="flex flex-wrap gap-4">
-                            {roomData.images.map((image, index) => (
-                              <Image
-                                key={index}
-                                width={150}
-                                height={150}
-                                className="rounded-xl"
-                                alt={`Room Image ${index + 1}`}
-                                src={image}
-                              />
-                            ))}
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
+  disabled
+  control={form.control}
+  name="images"
+  render={() => (  
+    <FormItem className="col-span-2">
+      <FormLabel>Room Images</FormLabel>
+      <FormControl>
+        <div className="flex flex-wrap gap-4">
+          {roomData.images.map((image, index) => (
+            <Image
+              key={index}
+              width={150}
+              height={150}
+              className="rounded-xl"
+              alt={`Room Image ${index + 1}`}
+              src={image}
+            />
+          ))}
+        </div>
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
                   <FormField
                     disabled
                     control={form.control}
